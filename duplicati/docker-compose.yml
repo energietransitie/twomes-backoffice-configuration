@@ -16,7 +16,7 @@ services:
       - traefik.http.routers.backup.tls.certresolver=lets-encrypt
       - traefik.http.services.backup.loadbalancer.server.port=8200
       - traefik.http.routers.backup.middlewares=private-network-ipwhitelist-duplicati
-      - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= #list here the ipv4 addresses from which you want to access duplicati. Syntax: 127.0.0.1, 10.0.0.1/24
+      - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= $IP_Whitelist
     volumes:
       - prd_dumpdata_prod:/dump_prod
       - tst_dumpdata_dev:/dump_dev

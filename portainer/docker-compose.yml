@@ -11,7 +11,7 @@ services:
       - traefik.http.routers.portainer.tls.certresolver=lets-encrypt
       - traefik.http.services.portainer.loadbalancer.server.port=9000
       - traefik.http.routers.portainer.middlewares=private-network-ipwhitelist-port
-      - traefik.http.middlewares.private-network-ipwhitelist-port.ipwhitelist.sourcerange= #list here the ipv4 addresses from which you want to access cloudbeaver. Syntax: 127.0.0.1, 10.0.0.1/24
+      - traefik.http.middlewares.private-network-ipwhitelist-port.ipwhitelist.sourcerange= $IP_Whitelist 
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
