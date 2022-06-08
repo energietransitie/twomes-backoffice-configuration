@@ -1,0 +1,20 @@
+version: "3"
+services:
+  traefik:
+    container_name: traefik
+    build: .
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    networks:
+      - web
+    volumes:
+      - /home/student/B4B/twomes-backoffice-server/traefik/traefik.toml:/traefik.toml
+      - /home/student/B4B/twomes-backoffice-server/traefik/traefik_dynamic.toml:/traefik_dynamic.toml
+      - /home/student/B4B/twomes-backoffice-server/traefik/acme.json:/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+networks:
+  web:
+    external:
+      name: web

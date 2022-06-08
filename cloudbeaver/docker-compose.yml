@@ -1,0 +1,23 @@
+version: "3"
+services:
+  cloudbeaver:
+    container_name: cloudbeaver
+    build: .
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.cloudbeaver.rule=Host(`db.energietransitiewindesheim.nl`)
+      - traefik.http.routers.cloudbeaver.tls=true
+      - traefik.http.routers.cloudbeaver.tls.certresolver=lets-encrypt
+      - traefik.http.services.cloudbeaver.loadbalancer.server.port=8978
+      - traefik.http.routers.cloudbeaver.middlewares=private-network-ipwhitelist-cb
+      - traefik.http.middlewares.private-network-ipwhitelist-cb.ipwhitelist.sourcerange= #list here the ipv4 addresses from which you want to access cloudbeaver. Syntax: 127.0.0.1, 10.0.0.1/24
+    volumes:
+      - cloudbeaverdata:/opt/cloudbeaver/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  cloudbeaverdata: {}

@@ -1,0 +1,20 @@
+version: "3"
+services:
+  mariadb_dev:
+    build: .
+    container_name: mariadb_dev
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=twomes
+    networks:
+      - web
+    ports:
+      - 3307:3306/tcp
+    volumes:
+      - dumpdata_dev:/var/lib/mysql/dump
+networks:
+  web:
+    external: true
+    name: web
+volumes:
+  dumpdata_dev: {}

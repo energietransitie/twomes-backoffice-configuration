@@ -1,0 +1,106 @@
+{
+  "CreatedByVersion": "2.0.6.3",
+  "Schedule": {
+    "ID": 2,
+    "Tags": [
+      "ID=2"
+    ],
+    "Time": "2022-04-12T11:00:00Z",
+    "Repeat": "1D",
+    "LastRun": "0001-01-01T00:00:00Z",
+    "Rule": "AllowedWeekDays=Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday",
+    "AllowedDays": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ]
+  },
+  "Backup": {
+    "ID": "",
+    "Name": "dev",
+    "Description": "",
+    "Tags": [],
+    "TargetURL": "webdavs://surfdrive.surf.nl/files/remote.php/nonshib-webdav/dev/?auth-username=&auth-password=",
+    "DBPath": "",
+    "Sources": [
+      "/dump_dev/"
+    ],
+    "Settings": [
+      {
+        "Filter": "",
+        "Name": "encryption-module",
+        "Value": "aes",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "compression-module",
+        "Value": "zip",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "dblock-size",
+        "Value": "1GB",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "passphrase",
+        "Value": "",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "--run-script-before-required",
+        "Value": "/scripts/script.sh",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "--run-script-after",
+        "Value": "/scripts/script.sh",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "--run-script-timeout",
+        "Value": "30m",
+        "Argument": null
+      },
+      {
+        "Filter": "",
+        "Name": "--retention-policy",
+        "Value": "7D:0s,1M:1W,1Y:2M",
+        "Argument": null
+      }
+    ],
+    "Filters": [],
+    "Metadata": {
+      "LastErrorDate": "",
+      "LastErrorMessage": "",
+      "LastBackupDate": "",
+      "BackupListCount": "1",
+      "TotalQuotaSpace": "0",
+      "FreeQuotaSpace": "0",
+      "AssignedQuotaSpace": "-1",
+      "TargetFilesSize": "",
+      "TargetFilesCount": "",
+      "TargetSizeString": "",
+      "SourceFilesSize": "",
+      "SourceFilesCount": "1",
+      "SourceSizeString": "3.32 GB",
+      "LastBackupStarted": "20220412T082229Z",
+      "LastBackupFinished": "20220412T082909Z",
+      "LastBackupDuration": "00:06:40.0593520"
+    },
+    "IsTemporary": false
+  },
+  "DisplayNames": {
+    "/dump_dev/": "dump_dev"
+  }
+}

@@ -1,0 +1,24 @@
+version: "3"
+services:
+  portainer:
+    container_name: portainer
+    build: .
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.portainer.rule=Host(`docker.energietransitiewindesheim.nl`)
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=lets-encrypt
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer.middlewares=private-network-ipwhitelist-port
+      - traefik.http.middlewares.private-network-ipwhitelist-port.ipwhitelist.sourcerange= #list here the ipv4 addresses from which you want to access cloudbeaver. Syntax: 127.0.0.1, 10.0.0.1/24
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  portainer_data: {}
