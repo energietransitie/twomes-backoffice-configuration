@@ -255,6 +255,7 @@ Using portainer, add a docker container with the following charcteristics (keep 
 
 ## Developing
 
+text
 
 ## Features
 List of features ready and TODOs for future development. Ready:
@@ -282,12 +283,12 @@ Current version is stable. Room for improvement.
 
 ## Credits
 This software is a collaborative effort of:
-(Apre?)
+* (Apre?)
 
 Thanks also go to:
-Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
-Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
-Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
+* Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
+* Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
+* Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
 
 Product owner:
 * Henri ter Hofte · [@henriterhofte](https://github.com/henriterhofte) · Twitter [@HeNRGi](https://twitter.com/HeNRGi)
