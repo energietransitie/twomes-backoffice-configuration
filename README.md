@@ -178,7 +178,7 @@ Copy the `portainer` folder of this repository, including all its contents to th
 scp -pr portainer etw:
 ```
 
-On the server, set the proper IPv4 addres(ses) in `/root/portainer/docker-compose.yml`. 
+On the server, rename `/root/portainer/.env.example` to `/root/portainer/.env`set the proper IPv4 addres(ses) in `/root/portainer/.env`. 
 
 On the server, install portainer
 ```shell
@@ -193,7 +193,7 @@ Copy the `cloudbeaver` folder of this repository, including all its contents to 
 scp -pr cloudbeaver etw:
 ```
 
-On the server, set the proper IPv4 addres(ses) in `/root/cloudbeaver/docker-compose.yml`. 
+On the server, rename `/root/cloudbeaver/.env.example` to `/root/cloudbeaver/.env`set the proper IPv4 addres(ses) in `/root/cloudbeaver/.env`. 
 
 On the server, install cloudbeaver
 ```shell
@@ -209,8 +209,7 @@ Copy the `duplicati` folder of this repository, including all its contents to th
 scp -pr duplicati etw:
 ```
 
-On the server, rename `/root/duplicati/.env.example` to `/root/duplicati/.env` and replace `secret` by the actual root passwords of the MariaDB databases.
-On the server, set the proper IPv4 addres(ses) in `/root/duplicati/docker-compose.yml`. 
+On the server, rename `/root/duplicati/.env.example` to `/root/duplicati/.env` and replace `secret` by the actual root passwords of the MariaDB databases. Set also the proper IPv4 addres(ses) in `/root/duplicati/.env`. 
 
 On the backup destination, create a directory for each environment (with the name `dev` and `prod`). For academic research in the Netherlands, [SURFdive](https://www.surf.nl/surfdrive-bewaar-en-deel-je-bestanden-veilig-in-de-cloud?dst=n1460) or [Research Drive](https://wiki.surfnet.nl/display/RDRIVE/SURF+Research+Drive+wiki) might be a suitable backup destination in combination with the WebDAV protocol.
 
@@ -266,6 +265,7 @@ List of features ready and TODOs for future development. Ready:
 
 To-do:
 - [ ] Further implementation of Dependabot
+- [ ] Create only docker-compose file for Traefik instead of .toml files
 
 Optional:
 - [ ] SSH tunnel to the Portainer container
