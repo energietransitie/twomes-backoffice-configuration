@@ -5,33 +5,6 @@
 
 version: 2
 updates:
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/mariadb/tst/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "09:00"
-      timezone: "Europe/Amsterdam"
-    target-branch: "develop"
-    open-pull-requests-limit: 10
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/mariadb/prd/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "09:00"
-      timezone: "Europe/Amsterdam"
-    target-branch: "develop"
-    open-pull-requests-limit: 10
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/duplicati/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "09:00"
-      timezone: "Europe/Amsterdam"
-    target-branch: "develop"
-    open-pull-requests-limit: 10
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/duplicati/" # Location of package manifests
     schedule:
