@@ -1,7 +1,34 @@
 # Twomes Backoffice Server
 
 NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute your own domain; where you read `etw` below, you should subsitute your own server abbreviation. 
-## General setup
+
+## Table of contents
+* [General info](#general-info)
+* [Prerequisites](#prerequisites)
+* [Deploying](#deploying)
+* [Developing](#developing) 
+* [Features](#features)
+* [Status](#status)
+* [License](#license)
+* [Credits](#credits)
+
+
+General setup
+Domian setup
+database
+traefik
+etc
+ect
+
+
+
+## General info
+
+
+bla bla bbla
+
+
+## Prerequisites
 
 For easy ssh/scp access to the server, copy your ssh certificate to
 the server. This requires the root password once; after that, your
@@ -39,7 +66,7 @@ With this config in place, login to the server is simply
 ssh etw
 ```
 
-## Domain setup
+### Domain setup
 
 Hostnames for production services
 - `(www.)energietransitiewindesheim.nl` : web
@@ -55,7 +82,9 @@ Hostnames for system services
 - `deploy.energietransitiewindesheim.nl` : deploy webhook
 - `backup.energietransitiewindesheim.nl` : duplicati
 
-## Database access
+## Deploying
+
+### Database access
 
 Accessing the database servers on their own hostname on the default port, 
 for instance `db.energietransitiewindesheim.nl`, using a secure TLS 
@@ -74,7 +103,7 @@ production database:
 ssh -i ~/.ssh/dbtunnel dbtunnel@energietransitiewindesheim.nl -L 3306:localhost:3306 -N
 ```
 
-## Traefik
+### Traefik
 
 All http(s) access to the server goes through the Traefik proxy. This
 proxy takes care of virtual host for multiple subdomains of 
@@ -103,7 +132,7 @@ docker-compose up --build -d
 ```
 
 
-## Mariadb
+### Mariadb
 
 Copy the `mariadb` directory to the server, in `/root`:
 ```shell
@@ -121,7 +150,7 @@ docker-compose up -d
 ```
 
 
-## API
+### API
 
 Copy the `api` folder of this repository, including all its contents to the server, such that it available as `/root/api`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
 ```shell
@@ -140,7 +169,7 @@ docker-compose up -d
 ```
 
 
-## Portainer
+### Portainer
 
 Copy the `portainer` folder of this repository, including all its contents to the server, such that it available as `/root/portainer`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
 ```shell
@@ -155,7 +184,7 @@ cd /root/portainer
 docker-compose up --build -d
 ```
 
-## CloudBeaver
+### CloudBeaver
 
 Copy the `cloudbeaver` folder of this repository, including all its contents to the server, such that it available as `/root/cloudbeaver`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
 ```shell
@@ -171,7 +200,7 @@ docker-compose up --build -d
 ```
 
 
-## Backup
+### Backup
 
 Copy the `duplicati` folder of this repository, including all its contents to the server, such that it available as `/root/duplicati`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command: 
 ```shell
@@ -191,14 +220,14 @@ docker-compose up -- build -d
 
 
 Use a web brower to navigate to [https://backup.energietransitiewindesheim.nl](https://backup.energietransitiewindesheim.nl), follow the wizard and use `Add backup` to add backup tasks using the option `Import from a file`. For convenience, we provided the files [backup_prod-duplicati-config.json](backup_prod-duplicati-config.json) and [backup_dev-duplicati-config.json](backup_dev-duplicati-config.json) as templates; add your own credentials and passphrases.
-### Restore
+#### Restore
 
 Click restore and the environment and then the version you want to restore.
 
 Check the `db.dump` and hit continue and restore.
 
 
-## JupyterLabs notebooks
+### JupyterLabs notebooks
 
 Using portainer, add a docker container with the following charcteristics (keep the defualt values for all other options default values), after setting all values below select `Deploy the container`
 - Name:`jupyter`, `notebook` or `analysis`(preferably use a name that corresponds with a subdomain domains you have available for accessing the JupyterLab notebook web page)   
