@@ -30,6 +30,8 @@ bla bla bbla
 
 ## Prerequisites
 
+### SSH setup
+
 For easy ssh/scp access to the server, copy your ssh certificate to
 the server. This requires the root password once; after that, your
 ssh key will be used for authentication.
@@ -250,3 +252,45 @@ Using portainer, add a docker container with the following charcteristics (keep 
   - Enable the Extension manager (puzzle icon in left pane)
 - Restart container via Portainer (this may cause the token to change)
 - After the container started fully, look again at the logs and look for a line that includes `http://127.0.0.1:8888/lab?token=`, after which you fint the token. You can access the JupyterLab now on this URL: `http://<Name>.energietransitiewindesheim.nl/lab?token=<token>`. In the URL you browse to, replace  `<Name>`  with the name of the chosen subdomain you have and replace <token> with the token you found in this step.
+
+## Developing
+
+
+## Features
+List of features ready and TODOs for future development. Ready:
+
+- [x] Implementing automated backup solution
+- [x] Limitiing access by IPv4 address
+- [x] Ratelimiting on the API
+
+To-do:
+- [ ] Further implementation of Dependabot
+
+Optional:
+- [ ] SSH tunnel to the Portainer container
+- [ ] SSH tunnel to the Cloudbeaver container
+- [ ] SSH tunnel to the Traefik container
+
+## Status
+Project is: _in progress_
+
+Current version is stable. Room for improvement.
+
+## Licence
+
+
+
+## Credits
+This software is a collaborative effort of:
+(Apre?)
+
+Thanks also go to:
+Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
+Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
+Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
+
+Product owner:
+* Henri ter Hofte · [@henriterhofte](https://github.com/henriterhofte) · Twitter [@HeNRGi](https://twitter.com/HeNRGi)
+
+
+
