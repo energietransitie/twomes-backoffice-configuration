@@ -9,9 +9,9 @@ services:
     networks:
       - web
     volumes:
-      - /home/student/B4B/twomes-backoffice-server/traefik/traefik.toml:/traefik.toml
-      - /home/student/B4B/twomes-backoffice-server/traefik/traefik_dynamic.toml:/traefik_dynamic.toml
-      - /home/student/B4B/twomes-backoffice-server/traefik/acme.json:/acme.json
+      - /root/traefik/traefik.toml:/traefik.toml
+      - /root/traefik/traefik_dynamic.toml:/traefik_dynamic.toml
+      - /root/traefik/acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
 networks:
