@@ -8,9 +8,9 @@ services:
       - traefik.http.routers.twomes-api-prd.tls=true
       - traefik.http.routers.twomes-api-prd.tls.certresolver=lets-encrypt
       - traefik.http.services.twomes-api-prd.loadbalancer.server.port=80
-      - traefik.http.routers.twomes-api-prd.middlewares=test-ratelimit
-      - traefik.http.middlewares.test-ratelimit.ratelimit.average=100
-      - traefik.http.middlewares.test-ratelimit.ratelimit.burst=50
+      - traefik.http.routers.twomes-api-prd.middlewares=prod-ratelimit
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.average=100
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.burst=50
     networks:
       - web
     command: |
