@@ -11,10 +11,10 @@ services:
     ports:
       - 3307:3306/tcp
     volumes:
-      - dumpdata_dev:/var/lib/mysql/dump
+      - dump_dev:/var/lib/mysql/dump
 networks:
   web:
     external: true
     name: web
 volumes:
-  dumpdata_dev: {}
+  dump_dev: {}

@@ -18,8 +18,8 @@ services:
       - traefik.http.routers.backup.middlewares=private-network-ipwhitelist-duplicati
       - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= $IP_Whitelist
     volumes:
-      - prd_dumpdata_prod:/dump_prod
-      - tst_dumpdata_dev:/dump_dev
+      - dump_prod:/dump_prod
+      - dump_dev:/dump_dev
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
 networks:
@@ -27,7 +27,7 @@ networks:
     external:
       name: web
 volumes:
-  prd_dumpdata_prod:
+  dump_prod:
     external: true
-  tst_dumpdata_dev:
+  dump_dev:
     external: true
