@@ -176,7 +176,7 @@ On the backup destination, create a directory for each environment (with the nam
 Log in as root on the Twomes backoffice server and start the container using the following command:
 ```shell
 cd /root/duplicati
-docker-compose up -- build -d
+docker-compose up --build -d
 ```
 
 
