@@ -99,7 +99,8 @@ chmod 600 acme.json
 
 Start the Traefik proxy
 ```shell
-docker-compose up --build -d
+cd /root/traefik
+docker-compose up -d
 ```
 
 ### Portainer
@@ -114,7 +115,7 @@ On the server, rename `/root/portainer/.env.example` to `/root/portainer/.env`se
 On the server, install portainer
 ```shell
 cd /root/portainer
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 ### MariaDB
@@ -126,10 +127,14 @@ scp -pr mariadb etw:
 
 On the server, rename `/root/mariadb/prd/.env.example` and `/root/mariadb/tst/.env.example` to `/root/mariadb/prd/.env` and `/root/mariadb/tst/.env` and replace `secret` by the proper root passwords of the MariaDB databases.
 
-Then start the container
+Then start the tst container
 ```shell
 cd /root/mariadb/tst
 docker-compose up -d
+```
+
+Then start the prd container
+```shell
 cd /root/mariadb/prd
 docker-compose up -d
 ```
@@ -157,7 +162,7 @@ On the server, rename `/root/cloudbeaver/.env.example` to `/root/cloudbeaver/.en
 On the server, install cloudbeaver
 ```shell
 cd /root/cloudbeaver
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 
@@ -175,7 +180,7 @@ On the backup destination, create a directory for each environment (with the nam
 Log in as root on the Twomes backoffice server and start the container using the following command:
 ```shell
 cd /root/duplicati
-docker-compose up -- build -d
+docker-compose up --build -d
 ```
 
 
@@ -195,11 +200,15 @@ scp -pr api etw:
 
 On the server, rename `/root/api/prd/.env.example` to `/root/api/prd/.env` and `/root/api/tst/.env.example` to `/root/api/tst/.env` and replace `secret` by the actual root passwords of the MariaDB databases.
 
-Then start (or redeploy after image update)
+Then start tst (or redeploy after image update)
 ```shell
 docker pull ghcr.io/energietransitie/twomes_api:latest
 cd /root/api/tst
 docker-compose up -d
+```
+
+Then start prd (or redeploy after image update)
+```shell
 cd /root/api/prd
 docker-compose up -d
 ```

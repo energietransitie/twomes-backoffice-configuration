@@ -22,6 +22,7 @@ services:
       - dump_dev:/dump_dev
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
+    restart: unless-stopped
 networks:
   web:
     external:
