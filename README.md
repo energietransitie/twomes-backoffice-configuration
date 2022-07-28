@@ -215,18 +215,40 @@ docker-compose up -d
 
 ### JupyterLab
 
-[JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. To deploy a JupyterLab notebook to a container, add a docker container (using [portiner](#portainer)) with the following charcteristics (keep the defualt values for all other options default values), after setting all values below select `Deploy the container`
-- Name:`jupyter`, `notebook` or `analysis` (preferably use a name that corresponds with a subdomain you have available for accessing the JupyterLab notebook web page) 
-- Image / docker.io `jupyter/datascience-notebook:latest`
-- Advanced container settings / Command & logging: tick `Interactive & TTY`
-- Advanced container settings / Env / Load variables from .env file (.env file with proper values to access the MariaDB container and database you want)
-- Advanced container settings / Network: add the `web` network
-- Advanced container settings / Labels: add the following names and values, while replacing `<Name>`  with the name of the chosen subdomain:
-  - name: `traefik.http.routers.<Name>.rule`; value: ``Host(`<Name>.energietransitiewindesheim.nl`)``
-  - name: `traefik.http.routers.<Name>.tls`; value: `true`
-  - name: `traefik.http.routers.<Name>.tls.certresolver`; value: `lets-encrypt`
-  - name: `traefik.http.services.<Name>.loadbalancer.server.port`; value: `8888`
-- After the container started fully, look at the logs and look for a line that includes `http://127.0.0.1:8888/lab?token=`, after which you fint the token. You can access the JupyterLab now on this URL: `http://<Name>.energietransitiewindesheim.nl/lab?token=<token>`. Replace  `<Name>`  with the name of the subdomain you have; in the URL you browse to, . If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
+[JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. To a JupyterLab notebook to a container, copy the `jupyter` folder of this repository, including all its contents to the server, such that it available as `/root/jupyter`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
+
+```shell
+scp -pr jupyter etw:
+```
+
+If you want to use another instance, with another name than `jupyter` (e.g. `notebook` or `analysis`) , make sure you use a name that corresponds with a subdomain you have available for accessing the JupyterLab notebook web page). Below, while replacing `<name>`  with the name of the chosen container=subdomain. Below, we use `notebook` as an example for `<name>`. On the server:
+- rename `/root/jupyter` to `/root/notebook`
+- rename `/root/<name>/.env.example` to `/root/<name>/.env`, and in that file
+- replace `COMPOSE_PROJECT_NAME=<name>` with the name you chose, e.g. `COMPOSE_PROJECT_NAME=notebook`
+- replace `<db_password>` with the actual database password
+- after `IP_Whitelist =` add a commaseparated list of IP-addresses and/or address ranges you want to whiteloast (other IP-addresses will NOT be granted access
+
+
+On the server, install JupyterLab
+```shell
+cd /root/notebook
+docker-compose up -d
+```
+
+For other container names, this would be e.g.
+```shell
+cd /root/jupyter
+docker-compose up -d
+```
+
+or
+```shell
+cd /root/analysis
+docker-compose up -d
+```
+
+
+Via [portainer](#portainer) after the container started fully, you can access the JupyterLab now on this URL: `http://<name>.energietransitiewindesheim.nl/lab?token=<secret_token>`. If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
 - Via the JupyterLab web interface
     - Use the launcher (always avalable via the `+` tab), launch a terminal window and the command: 
     ```shell
@@ -234,8 +256,9 @@ docker-compose up -d
     ```
   - Enable Show hidden filles via Settings / Advanced Settings editor / File Browser / Show hidden files
   - Enable the Extension manager (puzzle icon in left pane)
-- Restart container via Portainer (this may cause the token to change)
-- After the container started fully, look again at the logs and look for a line that includes `http://127.0.0.1:8888/lab?token=`, after which you fint the token. You can access the JupyterLab now on this URL: `http://<Name>.energietransitiewindesheim.nl/lab?token=<token>`. In the URL you browse to, replace  `<Name>`  with the name of the chosen subdomain you have and replace <token> with the token you found in this step.
+- Restart container via Portainer and access it again via the same URL;
+- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git
+
 
 ## Features
 List of features ready and TODOs for future development. Ready:
@@ -243,9 +266,9 @@ List of features ready and TODOs for future development. Ready:
 - [x] Implementing automated backup solution
 - [x] Limiting access by IPv4 address
 - [x] Ratelimiting on the API
+- [x] Further implementation of Dependabot
 
 To-do:
-- [ ] Further implementation of Dependabot
 - [ ] Create only docker-compose file for Traefik instead of .toml files
 - [ ] Integrated deployment of the entire Twomes Backoffice stack
 
@@ -274,6 +297,7 @@ It was extended by:
 * Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
 * Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
 * Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
+* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
 * Henri ter Hofte · [@henriterhofte](https://github.com/henriterhofte) · Twitter [@HeNRGi](https://twitter.com/HeNRGi)
   
 Product owner:
