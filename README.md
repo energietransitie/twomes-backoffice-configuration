@@ -127,10 +127,14 @@ scp -pr mariadb etw:
 
 On the server, rename `/root/mariadb/prd/.env.example` and `/root/mariadb/tst/.env.example` to `/root/mariadb/prd/.env` and `/root/mariadb/tst/.env` and replace `secret` by the proper root passwords of the MariaDB databases.
 
-Then start the container
+Then start the tst container
 ```shell
 cd /root/mariadb/tst
 docker-compose up -d
+```
+
+Then start the prd container
+```shell
 cd /root/mariadb/prd
 docker-compose up -d
 ```
@@ -196,11 +200,15 @@ scp -pr api etw:
 
 On the server, rename `/root/api/prd/.env.example` to `/root/api/prd/.env` and `/root/api/tst/.env.example` to `/root/api/tst/.env` and replace `secret` by the actual root passwords of the MariaDB databases.
 
-Then start (or redeploy after image update)
+Then start tst (or redeploy after image update)
 ```shell
 docker pull ghcr.io/energietransitie/twomes_api:latest
 cd /root/api/tst
 docker-compose up -d
+```
+
+Then start prd (or redeploy after image update)
+```shell
 cd /root/api/prd
 docker-compose up -d
 ```
