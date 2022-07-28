@@ -99,7 +99,8 @@ chmod 600 acme.json
 
 Start the Traefik proxy
 ```shell
-docker-compose up --build -d
+cd /root/traefik
+docker-compose up -d
 ```
 
 ### Portainer
@@ -114,7 +115,7 @@ On the server, rename `/root/portainer/.env.example` to `/root/portainer/.env`se
 On the server, install portainer
 ```shell
 cd /root/portainer
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 ### MariaDB
@@ -157,7 +158,7 @@ On the server, rename `/root/cloudbeaver/.env.example` to `/root/cloudbeaver/.en
 On the server, install cloudbeaver
 ```shell
 cd /root/cloudbeaver
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 

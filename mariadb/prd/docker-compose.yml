@@ -1,8 +1,8 @@
 version: "3"
 services:
   mariadb_prod:
-    build: .
     container_name: mariadb_prod
+    image: mariadb:10.7.3
     networks:
       - web
     environment:
@@ -12,6 +12,7 @@ services:
       - 3306:3306/tcp
     volumes:
       - dump_prod:/var/lib/mysql/dump
+    restart: unless-stopped
 networks:
   web:
     external: true

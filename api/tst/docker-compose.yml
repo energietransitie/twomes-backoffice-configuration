@@ -17,6 +17,7 @@ services:
       bash -c 'while !</dev/tcp/mariadb_dev/3306; do sleep 1; done; (cd /app; alembic upgrade head); uvicorn api:app --reload --host 0.0.0.0 --port 80'
     environment:
       - TWOMES_DB_URL=${TWOMES_DB_URL}
+    restart: unless-stopped
 networks:
   web:
     external:

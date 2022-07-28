@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   twomes-api-prd:
-    image: ghcr.io/energietransitie/twomes_api:latest
+    image: ghcr.io/energietransitie/twomes_api:v1.0.0
     container_name: twomes-api-prd
     labels:
       - traefik.http.routers.twomes-api-prd.rule=Host(`api.energietransitiewindesheim.nl`)
@@ -17,6 +17,7 @@ services:
       bash -c 'while !</dev/tcp/mariadb_prod/3306; do sleep 1; done; (cd /app; alembic upgrade head); uvicorn api:app --reload --host 0.0.0.0 --port 80'
     environment:
       - TWOMES_DB_URL=${TWOMES_DB_URL}
+    restart: unless-stopped
 networks:
   web:
     external:

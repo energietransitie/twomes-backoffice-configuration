@@ -2,7 +2,7 @@ version: "3"
 services:
   portainer:
     container_name: portainer
-    build: .
+    image: portainer/portainer-ce:2.13.1
     networks:
       - web
     labels:
@@ -16,6 +16,7 @@ services:
       - data:/data
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
+    restart: always
 networks:
   web:
     external:

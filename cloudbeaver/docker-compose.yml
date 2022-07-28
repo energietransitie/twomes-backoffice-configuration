@@ -2,7 +2,7 @@ version: "3"
 services:
   cloudbeaver:
     container_name: cloudbeaver
-    build: .
+    image: dbeaver/cloudbeaver:22.0.4
     networks:
       - web
     labels:
@@ -15,6 +15,7 @@ services:
     volumes:
       - data:/opt/cloudbeaver/workspace
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
 networks:
   web:
     external:
