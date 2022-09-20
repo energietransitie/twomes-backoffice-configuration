@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   twomes-api-prd:
-    image: ghcr.io/energietransitie/twomes_api:v1.0.0
+    image: ghcr.io/energietransitie/twomes_api:v1.1.0
     container_name: twomes-api-prd
     labels:
       - traefik.http.routers.twomes-api-prd.rule=Host(`api.energietransitiewindesheim.nl`)
