@@ -77,7 +77,7 @@ For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own contain
 
 ## Deploying
 
-:warning: This deploying method currently only works for the [`jupyter`](#jupyterlab) service.
+:warning: This deploying method currently only works for the [`JupyterLab`](#jupyterlab) service.
 
 Add a new stack according to the following steps:
 1. Go to `stacks` in portainer.
@@ -262,16 +262,19 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 #### Additional steps
 
-Via [portainer](#portainer) after the container started fully, in the logs of the container you will find the can find the token of this JupyterLab container. Search for `token` if don't see it immediately. To access the JupyterLab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`.   If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
-- Via the JupyterLab web interface
+After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. 
+
+> If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
+
+- Via the JupyterLab web interface:
     - Use the launcher (always avalable via the `+` tab), launch a terminal window and the command: 
     ```shell
     pip install jupyterlab-git
     ```
-  - Enable Show hidden filles via Settings / Advanced Settings editor / File Browser / Show hidden files
-  - Enable the Extension manager (puzzle icon in left pane)
-- Restart container via Portainer and access it again via the same URL;
-- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git
+  - Enable Show hidden filles via Settings / Advanced Settings editor / File Browser / Show hidden files.
+  - Enable the Extension manager (puzzle icon in left pane).
+- Restart container via Portainer and access it again via the same URL.
+- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git.
 
 ## Updating
 
