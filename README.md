@@ -238,7 +238,7 @@ Follow the steps in the [deploying section](#deploying) to create the stack on P
 
 ##### `COMPOSE_PROJECT_NAME`
 
-This environment variable is used to name the container, traefik routers and subdomain. Make sure the name corresponds to an existing subdomain `<name>.energietransitiewindesheim.nl`.
+This environment variable is used to name the container, traefik routers and subdomain. Make sure the name corresponds to an existing subdomain `<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl`.
 
 Example values: `jupyter`, `notebook` or `analysis`
 
@@ -246,7 +246,7 @@ Example values: `jupyter`, `notebook` or `analysis`
 
 This environment variable is used to set the connection string which is used to connect to the Twomes database.
 
-Example values: `readonly_researcher:<db_password>@mariadb_dev:3306/twomes`
+Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes`
 
 > The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
 >
@@ -258,11 +258,11 @@ This environment variable is used to set the allowed IPs (or ranges of allowed I
 
 Example values: `127.0.0.1/32, 192.168.1.7`
 
-> Read more about it in the [Treafik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
+> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
 
-#### Addition steps
+#### Additional steps
 
-Via [portainer](#portainer) after the container started fully, you can access the JupyterLab now on this URL: `http://<name>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
+Via [portainer](#portainer) after the container started fully, in the logs of the container you will find the can find the token of this JupyterLab container. Search for `token` if don't see it immediately. To access the JupyterLab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`.   If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
 - Via the JupyterLab web interface
     - Use the launcher (always avalable via the `+` tab), launch a terminal window and the command: 
     ```shell
