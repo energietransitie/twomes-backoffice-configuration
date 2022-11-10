@@ -271,7 +271,7 @@ After the container is fully started, you can use [Portainer](#portainer) to fin
     ```shell
     pip install jupyterlab-git
     ```
-  - Enable Show hidden filles via Settings / Advanced Settings editor / File Browser / Show hidden files.
+  - Enable Show hidden files via Settings / Advanced Settings editor / File Browser / Show hidden files.
   - Enable the Extension manager (puzzle icon in left pane).
 - Restart container via Portainer and access it again via the same URL.
 - Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git.
