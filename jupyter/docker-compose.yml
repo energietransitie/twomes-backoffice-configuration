@@ -9,25 +9,20 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.energietransitiewindesheim.nl`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=lets-encrypt
-      - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8888
-      - traefik.http.routers.backup.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
       - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange= $IP_Whitelist
     networks:
       - web
     environment:
-      - DATABASE_HOST=${DATABASE_HOST}
-      - DATABASE_PORT=${DATABASE_PORT}
-      - DATABASE_NAME=${DATABASE_NAME}
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - TWOMES_DB_URL=${TWOMES_DB_URL}
       - JUPYTER_ENABLE_LAB=yes
       - JUPYTER_TOKEN=${JUPYTER_TOKEN}
     restart: unless-stopped
     volumes:
-      - jupyterdata:/home/jovyan
+      - data:/home/jovyan
 networks:
   web:
     external:
       name: web
 volumes:
-  jupyterdata: {}
+  data: {}
