@@ -16,7 +16,6 @@ services:
     environment:
       - TWOMES_DB_URL=${TWOMES_DB_URL}
       - JUPYTER_ENABLE_LAB=yes
-      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
     restart: unless-stopped
     volumes:
       - data:/home/jovyan

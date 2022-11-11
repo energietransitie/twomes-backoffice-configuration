@@ -7,6 +7,7 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 ## Table of contents
 * [Prerequisites](#prerequisites)
 * [Deploying](#deploying)
+* [Updating](#updating)
 * [Features](#features)
 * [Status](#status)
 * [License](#license)
@@ -75,6 +76,20 @@ For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own contain
 - `analysis.energietransitiewindesheim.nl` : [analysis](#jupyterlab)
 
 ## Deploying
+
+:warning: This deploying method currently only works for the [`JupyterLab`](#jupyterlab) service.
+
+Add a new stack according to the following steps:
+1. Go to `stacks` in portainer.
+2. Click on `Add stack`.
+3. Give it a name.
+4. Select `git repository` as the build method.
+5. Set the repository URL to `https://github.com/energietransitie/twomes-backoffice-configuration`.
+6. Set the repository reference to `refs/heads/main`.
+7. Set the compose path to `<stack_name>/docker-compose.yml`.
+8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
+    > Refer to the chapters below to see the stack-specific environment variables.
+9. Click on `Deploy the stack`.
 
 ### Traefik
 
@@ -215,50 +230,62 @@ docker-compose up -d
 
 ### JupyterLab
 
-[JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. To a JupyterLab notebook to a container, copy the `jupyter` folder of this repository, including all its contents to the server, such that it available as `/root/jupyter`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
+[JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
 
-```shell
-scp -pr jupyter etw:
-```
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the environment variables below.
 
-If you want to use another instance, with another name than `jupyter` (e.g. `notebook` or `analysis`) , make sure you use a name that corresponds with a subdomain you have available for accessing the JupyterLab notebook web page). Below, while replacing `<name>`  with the name of the chosen container=subdomain. Below, we use `notebook` as an example for `<name>`. On the server:
-- rename `/root/jupyter` to `/root/notebook`
-- rename `/root/<name>/.env.example` to `/root/<name>/.env`, and in that file
-- replace `COMPOSE_PROJECT_NAME=<name>` with the name you chose, e.g. `COMPOSE_PROJECT_NAME=notebook`
-- replace `<db_password>` with the actual database password
-- after `IP_Whitelist =` add a commaseparated list of IP-addresses and/or address ranges you want to whiteloast (other IP-addresses will NOT be granted access
+#### Environment variables
 
+##### `COMPOSE_PROJECT_NAME`
 
-On the server, install JupyterLab
-```shell
-cd /root/notebook
-docker-compose up -d
-```
+This environment variable is used to name the container, traefik routers and subdomain. Make sure the name corresponds to an existing subdomain `<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl`.
 
-For other container names, this would be e.g.
-```shell
-cd /root/jupyter
-docker-compose up -d
-```
+Example values: `jupyter`, `notebook` or `analysis`
 
-or
-```shell
-cd /root/analysis
-docker-compose up -d
-```
+##### `TWOMES_DB_URL`
 
+This environment variable is used to set the connection string which is used to connect to the Twomes database.
 
-Via [portainer](#portainer) after the container started fully, you can access the JupyterLab now on this URL: `http://<name>.energietransitiewindesheim.nl/lab?token=<secret_token>`. If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Enctrypt certificate yet).
-- Via the JupyterLab web interface
+Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes`
+
+> The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
+>
+> It is recommended to use a user and password without special characters to avoid parsing errors.
+
+##### `IP_Whitelist`
+
+This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
+
+Example values: `127.0.0.1/32, 192.168.1.7`
+
+> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
+
+#### Additional steps
+
+After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. 
+
+> If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
+
+- Via the JupyterLab web interface:
     - Use the launcher (always avalable via the `+` tab), launch a terminal window and the command: 
     ```shell
     pip install jupyterlab-git
     ```
-  - Enable Show hidden filles via Settings / Advanced Settings editor / File Browser / Show hidden files
-  - Enable the Extension manager (puzzle icon in left pane)
-- Restart container via Portainer and access it again via the same URL;
-- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git
+  - Enable Show hidden files via Settings / Advanced Settings editor / File Browser / Show hidden files.
+  - Enable the Extension manager (puzzle icon in left pane).
+- Restart container via Portainer and access it again via the same URL.
+- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git.
 
+## Updating
+
+When a `docker-compose.yml` for a stack is changed, the new configuration can be retrieved by following the steps below:
+
+1. Go to `Stacks` [portainer](https://docker.energietransitiewindesheim.nl).
+2. Click on the stack you want to update.
+3. You can change environment variables if you want.
+4. Click on `Pull and redeploy` to retrieve the configuration from the main branch and update the container(s).
+5. A pop-up will open. Click on `Update` to confirm.
+6. The stack will update. Wait for the notification to know that the stack was updated successfully.
 
 ## Features
 List of features ready and TODOs for future development. Ready:
