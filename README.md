@@ -77,20 +77,6 @@ For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own contain
 
 ## Deploying
 
-:warning: This deploying method currently only works for the [`JupyterLab`](#jupyterlab) service.
-
-Add a new stack according to the following steps:
-1. Go to `stacks` in portainer.
-2. Click on `Add stack`.
-3. Give it a name.
-4. Select `git repository` as the build method.
-5. Set the repository URL to `https://github.com/energietransitie/twomes-backoffice-configuration`.
-6. Set the repository reference to `refs/heads/main`.
-7. Set the compose path to `<stack_name>/docker-compose.yml`.
-8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
-    > Refer to the chapters below to see the stack-specific environment variables.
-9. Click on `Deploy the stack`.
-
 ### Traefik
 
 [Traefik proxy](https://traefik.io/traefik/) is a reverse proxy and load balancer. All http(s) access to the server goes through the Traefik proxy. This
@@ -232,15 +218,28 @@ docker-compose up -d
 
 [JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
 
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the environment variables below.
+Add a new stack according to the following steps:
+1. Go to `stacks` in portainer.
+2. Click on `Add stack`.
+3. Give the stack a name.
+4. Select `git repository` as the build method.
+5. Set the repository URL to: 
+    ```
+    https://github.com/energietransitie/twomes-backoffice-configuration
+    ```
+6. Set the repository reference to:
+    ```
+    refs/heads/main
+    ```
+7. Set the compose path to:
+    ```
+    jupyter/docker-compose.yml
+    ```
+8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
+    > Refer to the chapters below to see the stack-specific environment variables.
+9. Click on `Deploy the stack`.
 
 #### Environment variables
-
-##### `COMPOSE_PROJECT_NAME`
-
-This environment variable is used to name the container, traefik routers and subdomain. Make sure the name corresponds to an existing subdomain `<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl`.
-
-Example values: `jupyter`, `notebook` or `analysis`
 
 ##### `TWOMES_DB_URL`
 
@@ -262,7 +261,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 #### Additional steps
 
-After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. 
+After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
 
 > If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
 
@@ -273,7 +272,8 @@ After the container is fully started, you can use [Portainer](#portainer) to fin
     ```
   - Enable Show hidden files via Settings / Advanced Settings editor / File Browser / Show hidden files.
   - Enable the Extension manager (puzzle icon in left pane).
-- Restart container via Portainer and access it again via the same URL.
+  - If you wish to have a stable token after each forced restart, you can use [Portainer](#portainer), go to the container and via `Duplicate/Edit` > `Advanced container settings` > `Env` > `Add environment variable`, with name `JUPYTER_TOKEN` and a secret token with a proper length (e.g., 48 characters).
+- Restart container via Portainer and access it again via the proper URL.
 - Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git.
 
 ## Updating
