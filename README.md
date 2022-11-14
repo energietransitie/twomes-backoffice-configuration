@@ -241,12 +241,6 @@ Add a new stack according to the following steps:
 
 #### Environment variables
 
-##### `COMPOSE_PROJECT_NAME`
-
-This environment variable is used to name the container, traefik routers and subdomain. Make sure the name corresponds to an existing subdomain `<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl`.
-
-Example values: `jupyter`, `notebook` or `analysis`
-
 ##### `TWOMES_DB_URL`
 
 This environment variable is used to set the connection string which is used to connect to the Twomes database.
