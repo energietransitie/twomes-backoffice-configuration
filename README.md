@@ -261,7 +261,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 #### Additional steps
 
-After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<COMPOSE_PROJECT_NAME>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. 
+After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
 
 > If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
 
