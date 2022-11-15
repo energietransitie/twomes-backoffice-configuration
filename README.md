@@ -7,6 +7,13 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 ## Table of contents
 * [Prerequisites](#prerequisites)
 * [Deploying](#deploying)
+    * [Traefik](#traefik)
+    * [Portainer](#portainer)
+    * [MariaDB](#mariadb)
+    * [CloudBeaver](#cloudbeaver)
+    * [Backup](#backup)
+    * [API](#api)
+    * [JupyterLab](#jupyterlab)
 * [Updating](#updating)
 * [Features](#features)
 * [Status](#status)
