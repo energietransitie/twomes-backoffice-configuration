@@ -77,6 +77,28 @@ For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own contain
 
 ## Deploying
 
+Use the following steps to deploy a service as a Portainer stack. 
+> At Windesheim we use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
+
+Add a new stack according to the following steps:
+1. Go to `stacks` in portainer.
+2. Click on `Add stack`.
+3. Give the stack a name.
+4. Select `git repository` as the build method.
+5. Set the `repository URL` to: 
+    ```
+    https://github.com/energietransitie/twomes-backoffice-configuration
+    ```
+6. Set the `repository reference` to:
+    ```
+    refs/heads/main
+    ```
+7. Set the `compose path` to point to the docker-compose.yml you want to deploy.
+    > Refer to the chapters below to see the stack-specific compose path.
+8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
+    > Refer to the chapters below to see the stack-specific environment variables.
+9. Click on `Deploy the stack`.
+
 ### Traefik
 
 [Traefik proxy](https://traefik.io/traefik/) is a reverse proxy and load balancer. All http(s) access to the server goes through the Traefik proxy. This
@@ -218,26 +240,15 @@ docker-compose up -d
 
 [JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
 
-Add a new stack according to the following steps:
-1. Go to `stacks` in portainer.
-2. Click on `Add stack`.
-3. Give the stack a name.
-4. Select `git repository` as the build method.
-5. Set the repository URL to: 
-    ```
-    https://github.com/energietransitie/twomes-backoffice-configuration
-    ```
-6. Set the repository reference to:
-    ```
-    refs/heads/main
-    ```
-7. Set the compose path to:
-    ```
-    jupyter/docker-compose.yml
-    ```
-8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
-    > Refer to the chapters below to see the stack-specific environment variables.
-9. Click on `Deploy the stack`.
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+```
+jupyter/docker-compose.yml
+```
 
 #### Environment variables
 
