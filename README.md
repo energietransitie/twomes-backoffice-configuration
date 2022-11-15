@@ -216,25 +216,35 @@ Check the `db.dump` and hit continue and restore.
 
 ### API
 
-The [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) is an open souce solution that serves the Twomes REST API to the Twomes WarmteWachter app and Twomes measurement devices based on Twomes firmware and that used a Twomes database based on MariaDB. To deploy the Twomes api containers, copy the `api` folder of this repository, including all its contents to the server, such that it available as `/root/api`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
-```shell
-scp -pr api etw:
+The [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) is an open souce solution that serves the Twomes REST API to the Twomes WarmteWachter app and Twomes measurement devices based on Twomes firmware and that used a Twomes database based on MariaDB. 
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+##### Production
+```
+api/prd/docker-compose.yml
 ```
 
-On the server, rename `/root/api/prd/.env.example` to `/root/api/prd/.env` and `/root/api/tst/.env.example` to `/root/api/tst/.env` and replace `secret` by the actual root passwords of the MariaDB databases.
-
-Then start tst (or redeploy after image update)
-```shell
-docker pull ghcr.io/energietransitie/twomes_api:latest
-cd /root/api/tst
-docker-compose up -d
+##### Test
+```
+api/tst/docker-compose.yml
 ```
 
-Then start prd (or redeploy after image update)
-```shell
-cd /root/api/prd
-docker-compose up -d
-```
+#### Environment variables
+
+##### `TWOMES_DB_URL`
+
+This environment variable is used to set the database URL to connect to.
+
+Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes`
+
+> The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
+>
+> It is recommended to use a user and password without special characters to avoid parsing errors.
 
 ### JupyterLab
 
