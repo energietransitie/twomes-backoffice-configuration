@@ -73,7 +73,7 @@ For the Twomes backoffice test API:
 For system services:
 - `proxy.energietransitiewindesheim.nl` : [traefik](#traefik)
 - `docker.energietransitiewindesheim.nl` : [portainer](#portainer)
-- `db..energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
+- `db.energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
 - `deploy.energietransitiewindesheim.nl` : deploy webhook
 - `backup.energietransitiewindesheim.nl` : [duplicati](#backup)
 
