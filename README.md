@@ -182,19 +182,27 @@ ssh -i ~/.ssh/dbtunnel dbtunnel@energietransitiewindesheim.nl -L 3306:localhost:
 
 ### CloudBeaver
 
-[CloudBeaver](https://cloudbeaver.io/) is a web-based database manager. To deploy the `cloudbeaver` container, copy the `cloudbeaver` folder of this repository, including all its contents to the server, such that it available as `/root/cloudbeaver`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
-```shell
-scp -pr cloudbeaver etw:
+[CloudBeaver](https://cloudbeaver.io/) is a web-based database manager.
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+```
+cloudbeaver/docker-compose.yml
 ```
 
-On the server, rename `/root/cloudbeaver/.env.example` to `/root/cloudbeaver/.env`set the proper IPv4 addres(ses) in `/root/cloudbeaver/.env`. 
+#### Environment variables
 
-On the server, install cloudbeaver
-```shell
-cd /root/cloudbeaver
-docker-compose up -d
-```
+##### `IP_Whitelist`
 
+This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
+
+Example values: `127.0.0.1/32, 192.168.1.7`
+
+> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
 
 ### Backup
 
