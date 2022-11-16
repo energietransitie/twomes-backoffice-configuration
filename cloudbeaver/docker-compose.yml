@@ -14,11 +14,11 @@ services:
       - traefik.http.middlewares.private-network-ipwhitelist-cb.ipwhitelist.sourcerange= $IP_Whitelist
     volumes:
       - data:/opt/cloudbeaver/workspace
-      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
 networks:
   web:
-    external:
-      name: web
+    external: true
+    
 volumes:
   data: {}

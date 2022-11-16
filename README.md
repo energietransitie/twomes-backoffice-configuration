@@ -7,6 +7,13 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 ## Table of contents
 * [Prerequisites](#prerequisites)
 * [Deploying](#deploying)
+    * [Traefik](#traefik)
+    * [Portainer](#portainer)
+    * [MariaDB](#mariadb)
+    * [CloudBeaver](#cloudbeaver)
+    * [Duplicati](#duplicati)
+    * [API](#api)
+    * [JupyterLab](#jupyterlab)
 * [Updating](#updating)
 * [Features](#features)
 * [Status](#status)
@@ -66,9 +73,9 @@ For the Twomes backoffice test API:
 For system services:
 - `proxy.energietransitiewindesheim.nl` : [traefik](#traefik)
 - `docker.energietransitiewindesheim.nl` : [portainer](#portainer)
-- `db..energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
+- `db.energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
 - `deploy.energietransitiewindesheim.nl` : deploy webhook
-- `backup.energietransitiewindesheim.nl` : [duplicati](#backup)
+- `backup.energietransitiewindesheim.nl` : [duplicati](#duplicati)
 
 For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own container):
 - `jupyter.energietransitiewindesheim.nl` : [jupyter](#jupyterlab)
@@ -76,6 +83,28 @@ For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own contain
 - `analysis.energietransitiewindesheim.nl` : [analysis](#jupyterlab)
 
 ## Deploying
+
+Use the following steps to deploy a service as a Portainer stack. 
+> At Windesheim we use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
+
+Add a new stack according to the following steps:
+1. Go to `stacks` in portainer.
+2. Click on `Add stack`.
+3. Give the stack a name.
+4. Select `git repository` as the build method.
+5. Set the `repository URL` to: 
+    ```
+    https://github.com/energietransitie/twomes-backoffice-configuration
+    ```
+6. Set the `repository reference` to:
+    ```
+    refs/heads/main
+    ```
+7. Set the `compose path` to point to the docker-compose.yml you want to deploy.
+    > Refer to the chapters below to see the stack-specific compose path.
+8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
+    > Refer to the chapters below to see the stack-specific environment variables.
+9. Click on `Deploy the stack`.
 
 ### Traefik
 
@@ -153,21 +182,29 @@ ssh -i ~/.ssh/dbtunnel dbtunnel@energietransitiewindesheim.nl -L 3306:localhost:
 
 ### CloudBeaver
 
-[CloudBeaver](https://cloudbeaver.io/) is a web-based database manager. To deploy the `cloudbeaver` container, copy the `cloudbeaver` folder of this repository, including all its contents to the server, such that it available as `/root/cloudbeaver`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
-```shell
-scp -pr cloudbeaver etw:
+[CloudBeaver](https://cloudbeaver.io/) is a web-based database manager.
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+```
+cloudbeaver/docker-compose.yml
 ```
 
-On the server, rename `/root/cloudbeaver/.env.example` to `/root/cloudbeaver/.env`set the proper IPv4 addres(ses) in `/root/cloudbeaver/.env`. 
+#### Environment variables
 
-On the server, install cloudbeaver
-```shell
-cd /root/cloudbeaver
-docker-compose up -d
-```
+##### `IP_Whitelist`
 
+This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
 
-### Backup
+Example values: `127.0.0.1/32, 192.168.1.7`
+
+> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
+
+### Duplicati
 
 [Duplicati](https://www.duplicati.com/) is an online backup sotware solution. To deploy the `backup` container, copy the `duplicati` folder of this repository, including all its contents to the server, such that it available as `/root/duplicati`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command: 
 ```shell
@@ -194,50 +231,49 @@ Check the `db.dump` and hit continue and restore.
 
 ### API
 
-The [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) is an open souce solution that serves the Twomes REST API to the Twomes WarmteWachter app and Twomes measurement devices based on Twomes firmware and that used a Twomes database based on MariaDB. To deploy the Twomes api containers, copy the `api` folder of this repository, including all its contents to the server, such that it available as `/root/api`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
-```shell
-scp -pr api etw:
+The [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) is an open souce solution that serves the Twomes REST API to the Twomes WarmteWachter app and Twomes measurement devices based on Twomes firmware and that used a Twomes database based on MariaDB. 
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+##### Production
+```
+api/prd/docker-compose.yml
 ```
 
-On the server, rename `/root/api/prd/.env.example` to `/root/api/prd/.env` and `/root/api/tst/.env.example` to `/root/api/tst/.env` and replace `secret` by the actual root passwords of the MariaDB databases.
-
-Then start tst (or redeploy after image update)
-```shell
-docker pull ghcr.io/energietransitie/twomes_api:latest
-cd /root/api/tst
-docker-compose up -d
+##### Test
+```
+api/tst/docker-compose.yml
 ```
 
-Then start prd (or redeploy after image update)
-```shell
-cd /root/api/prd
-docker-compose up -d
-```
+#### Environment variables
+
+##### `TWOMES_DB_URL`
+
+This environment variable is used to set the database URL to connect to.
+
+Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes`
+
+> The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
+>
+> It is recommended to use a user and password without special characters to avoid parsing errors.
 
 ### JupyterLab
 
 [JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
 
-Add a new stack according to the following steps:
-1. Go to `stacks` in portainer.
-2. Click on `Add stack`.
-3. Give the stack a name.
-4. Select `git repository` as the build method.
-5. Set the repository URL to: 
-    ```
-    https://github.com/energietransitie/twomes-backoffice-configuration
-    ```
-6. Set the repository reference to:
-    ```
-    refs/heads/main
-    ```
-7. Set the compose path to:
-    ```
-    jupyter/docker-compose.yml
-    ```
-8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
-    > Refer to the chapters below to see the stack-specific environment variables.
-9. Click on `Deploy the stack`.
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+```
+jupyter/docker-compose.yml
+```
 
 #### Environment variables
 
@@ -261,7 +297,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 #### Additional steps
 
-After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
+After the container is fully started, you can use [Portainer](#portainer) to find the JupyterLab token in the logs. Search for `token` if don't see it immediately. To access the JupyterLab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
 
 > If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
 
@@ -321,10 +357,10 @@ This configuration repository was originally created by:
 * Arjan Peddemors  ·  [@arpe](https://github.com/arpe)
 
 It was extended by:
+* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
 * Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
 * Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
 * Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
-* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
 * Henri ter Hofte · [@henriterhofte](https://github.com/henriterhofte) · Twitter [@HeNRGi](https://twitter.com/HeNRGi)
   
 Product owner:
