@@ -2,7 +2,7 @@ version: "3"
 services:
   mariadb_dev:
     container_name: mariadb_dev
-    image: mariadb:10.7.3
+    image: mariadb:10.9.4
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=twomes
