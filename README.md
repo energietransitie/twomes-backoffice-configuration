@@ -11,7 +11,7 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
     * [Portainer](#portainer)
     * [MariaDB](#mariadb)
     * [CloudBeaver](#cloudbeaver)
-    * [Backup](#backup)
+    * [Duplicati](#duplicati)
     * [API](#api)
     * [JupyterLab](#jupyterlab)
 * [Updating](#updating)
@@ -75,7 +75,7 @@ For system services:
 - `docker.energietransitiewindesheim.nl` : [portainer](#portainer)
 - `db.energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
 - `deploy.energietransitiewindesheim.nl` : deploy webhook
-- `backup.energietransitiewindesheim.nl` : [duplicati](#backup)
+- `backup.energietransitiewindesheim.nl` : [duplicati](#duplicati)
 
 For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own container):
 - `jupyter.energietransitiewindesheim.nl` : [jupyter](#jupyterlab)
@@ -204,7 +204,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 > Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
 
-### Backup
+### Duplicati
 
 [Duplicati](https://www.duplicati.com/) is an online backup sotware solution. To deploy the `backup` container, copy the `duplicati` folder of this repository, including all its contents to the server, such that it available as `/root/duplicati`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command: 
 ```shell
@@ -297,7 +297,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 #### Additional steps
 
-After the container is fully started, you can use [Portainer](#portainer) to find the Jupyter Lab token in the logs. Search for `token` if don't see it immediately. To access the Jupyter Lab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
+After the container is fully started, you can use [Portainer](#portainer) to find the JupyterLab token in the logs. Search for `token` if don't see it immediately. To access the JupyterLab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
 
 > If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
 
@@ -357,10 +357,10 @@ This configuration repository was originally created by:
 * Arjan Peddemors  ·  [@arpe](https://github.com/arpe)
 
 It was extended by:
+* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
 * Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
 * Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
 * Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
-* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
 * Henri ter Hofte · [@henriterhofte](https://github.com/henriterhofte) · Twitter [@HeNRGi](https://twitter.com/HeNRGi)
   
 Product owner:
