@@ -150,35 +150,31 @@ docker-compose up -d
 
 ### MariaDB
 
-[MariaDB](https://mariadb.org/) is an open source relational database. To deploy the `mariadb` containers (one for test and one for production), copy the `mariadb` directory to the server, in `/root`:
-```shell
-scp -pr mariadb etw:
+[MariaDB](https://mariadb.org/) is an open source relational database. 
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+##### Production
+```
+mariadb/prd/docker-compose.yml
 ```
 
-On the server, rename `/root/mariadb/prd/.env.example` and `/root/mariadb/tst/.env.example` to `/root/mariadb/prd/.env` and `/root/mariadb/tst/.env` and replace `secret` by the proper root passwords of the MariaDB databases.
-
-Then start the tst container
-```shell
-cd /root/mariadb/tst
-docker-compose up -d
+##### Test
+```
+mariadb/tst/docker-compose.yml
 ```
 
-Then start the prd container
-```shell
-cd /root/mariadb/prd
-docker-compose up -d
-```
+#### Environment variables
 
-Accessing the database servers on their own hostname on the default port, for instance `db.energietransitiewindesheim.nl`, using a secure TLS connection, does not work. MariaDB does not support SNI, so there is no way to share the port.
+This stack does not require you to set any environment variables.
 
-To securely access the databases, you should configure an ssh user, e.g.  `dbtunnel`, with permissions to forward ports from local to 3306 (production) and 3307 (test). After setting up the ssh connection with port forwarding, the database is available on a local port, e.g. `localhost:3306`. 
+#### Additional steps
 
-The `dbtunnel` user works with a private key (distributed out-of-band).
-
-Example usage, with private key in `~/.ssh/dbtunnel`, for access to the production database:
-```shell
-ssh -i ~/.ssh/dbtunnel dbtunnel@energietransitiewindesheim.nl -L 3306:localhost:3306 -N
-```
+After the database is created for the first time, you can find the root password in the container logs. You can use this root password to log into the container and do any further configuration you wish. At Windesheim, we added additional users with varying permissions.
 
 ### CloudBeaver
 
