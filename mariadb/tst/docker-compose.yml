@@ -2,20 +2,19 @@ version: "3"
 services:
   mariadb_dev:
     container_name: mariadb_dev
-    image: mariadb:10.7.3
+    image: mariadb:10.9.4
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=twomes
     networks:
       - web
-    ports:
-      - 3307:3306/tcp
     volumes:
-      - dump_dev:/var/lib/mysql/dump
+      - data:/var/lib/mysql
     restart: unless-stopped
+
 networks:
   web:
     external: true
-    name: web
+
 volumes:
-  dump_dev: {}
+  data: {}

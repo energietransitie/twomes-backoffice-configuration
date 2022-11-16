@@ -2,20 +2,19 @@ version: "3"
 services:
   mariadb_prod:
     container_name: mariadb_prod
-    image: mariadb:10.7.3
+    image: mariadb:10.9.4
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=twomes
     networks:
       - web
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=twomes
-    ports:
-      - 3306:3306/tcp
     volumes:
-      - dump_prod:/var/lib/mysql/dump
+      - data:/var/lib/mysql
     restart: unless-stopped
+
 networks:
   web:
     external: true
-    name: web
+
 volumes:
-  dump_prod: {}
+  data: {}

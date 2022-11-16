@@ -150,35 +150,31 @@ docker-compose up -d
 
 ### MariaDB
 
-[MariaDB](https://mariadb.org/) is an open source relational database. To deploy the `mariadb` containers (one for test and one for production), copy the `mariadb` directory to the server, in `/root`:
-```shell
-scp -pr mariadb etw:
+[MariaDB](https://mariadb.org/) is an open source relational database. 
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+##### Production
+```
+mariadb/prd/docker-compose.yml
 ```
 
-On the server, rename `/root/mariadb/prd/.env.example` and `/root/mariadb/tst/.env.example` to `/root/mariadb/prd/.env` and `/root/mariadb/tst/.env` and replace `secret` by the proper root passwords of the MariaDB databases.
-
-Then start the tst container
-```shell
-cd /root/mariadb/tst
-docker-compose up -d
+##### Test
+```
+mariadb/tst/docker-compose.yml
 ```
 
-Then start the prd container
-```shell
-cd /root/mariadb/prd
-docker-compose up -d
-```
+#### Environment variables
 
-Accessing the database servers on their own hostname on the default port, for instance `db.energietransitiewindesheim.nl`, using a secure TLS connection, does not work. MariaDB does not support SNI, so there is no way to share the port.
+This stack does not require you to set any environment variables.
 
-To securely access the databases, you should configure an ssh user, e.g.  `dbtunnel`, with permissions to forward ports from local to 3306 (production) and 3307 (test). After setting up the ssh connection with port forwarding, the database is available on a local port, e.g. `localhost:3306`. 
+#### Additional steps
 
-The `dbtunnel` user works with a private key (distributed out-of-band).
-
-Example usage, with private key in `~/.ssh/dbtunnel`, for access to the production database:
-```shell
-ssh -i ~/.ssh/dbtunnel dbtunnel@energietransitiewindesheim.nl -L 3306:localhost:3306 -N
-```
+After the database is created for the first time, you can find the root password in the container logs. You can use this root password to log into the container and do any further configuration you wish. At Windesheim, we added additional users with varying permissions.
 
 ### CloudBeaver
 
@@ -206,23 +202,46 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 ### Duplicati
 
-[Duplicati](https://www.duplicati.com/) is an online backup sotware solution. To deploy the `backup` container, copy the `duplicati` folder of this repository, including all its contents to the server, such that it available as `/root/duplicati`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command: 
-```shell
-scp -pr duplicati etw:
+[Duplicati](https://www.duplicati.com/) is an online backup sotware solution.  
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+```
+duplicati/docker-compose.yml
 ```
 
-On the server, rename `/root/duplicati/.env.example` to `/root/duplicati/.env` and replace `secret` by the actual root passwords of the MariaDB databases. Set also the proper IPv4 addres(ses) in `/root/duplicati/.env`. 
+#### Environment variables
+
+##### `DB_PASSWORD_DEV`
+
+This environment variable is used to set the database password for the test environment (mariadb_dev).
+
+Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
+
+##### `DB_PASSWORD_PROD`
+
+This environment variable is used to set the database password for the production environment (mariadb_prod).
+
+Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
+
+##### `IP_Whitelist`
+
+This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
+
+Example values: `127.0.0.1/32, 192.168.1.7`
+
+> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
+
+#### Additional steps
 
 On the backup destination, create a directory for each environment (with the name `dev` and `prod`). For academic research in the Netherlands, [SURFdrive](https://www.surf.nl/surfdrive-bewaar-en-deel-je-bestanden-veilig-in-de-cloud?dst=n1460) or [Research Drive](https://wiki.surfnet.nl/display/RDRIVE/SURF+Research+Drive+wiki) might be a suitable backup destination in combination with the WebDAV protocol.
 
-Log in as root on the Twomes backoffice server and start the container using the following command:
-```shell
-cd /root/duplicati
-docker-compose up --build -d
-```
+Use a web brower to navigate to [https://backup.energietransitiewindesheim.nl](https://backup.energietransitiewindesheim.nl), follow the wizard and use `Add backup` to add backup tasks using the option `Import from a file`. For convenience, we provided the files [backup_prod-duplicati-config.json](duplicati/backup_prod-duplicati-config.json) and [backup_dev-duplicati-config.json](duplicati/backup_dev-duplicati-config.json) as templates; add your own credentials and passphrases.
 
-
-Use a web brower to navigate to [https://backup.energietransitiewindesheim.nl](https://backup.energietransitiewindesheim.nl), follow the wizard and use `Add backup` to add backup tasks using the option `Import from a file`. For convenience, we provided the files [backup_prod-duplicati-config.json](backup_prod-duplicati-config.json) and [backup_dev-duplicati-config.json](backup_dev-duplicati-config.json) as templates; add your own credentials and passphrases.
 #### Restore
 
 Click restore and the environment and then the version you want to restore.

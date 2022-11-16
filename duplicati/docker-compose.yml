@@ -8,6 +8,7 @@ services:
       - DB_PASSWORD_PROD=${DB_PASSWORD_PROD}
       - PUID=0
       - PGID=0
+      - TZ=Europe/Amsterdam
     networks:
       - web
     labels:
@@ -18,17 +19,14 @@ services:
       - traefik.http.routers.backup.middlewares=private-network-ipwhitelist-duplicati
       - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= $IP_Whitelist
     volumes:
-      - dump_prod:/dump_prod
-      - dump_dev:/dump_dev
+      - data:/config
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
+
 networks:
   web:
-    external:
-      name: web
+    external: true
+
 volumes:
-  dump_prod:
-    external: true
-  dump_dev:
-    external: true
+  data: {}
