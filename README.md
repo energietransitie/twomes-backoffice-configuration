@@ -300,6 +300,8 @@ jupyter/docker-compose.yml
 
 The environment variable `COMPOSE_PROJECT_NAME` is used to set the domain name used to connect to the JupyterLab instance. It is usually the same as the container name.
 
+Example values: `jupyter`, `notebook` or `analysis`
+
 ##### `TWOMES_DB_URL`
 
 This environment variable is used to set the connection string which is used to connect to the Twomes database.
