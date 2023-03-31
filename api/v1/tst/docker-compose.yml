@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  twomes-api-v1-tst:
+    image: ghcr.io/energietransitie/twomes_api:v1.1.0 # Latest API v1 version.
+    container_name: twomes-api-v1-tst
+    labels:
+      - traefik.http.routers.twomes-api-v1-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) || Host(`api.tst.energietransitiewindesheim.nl`) && Path(`/v1`)
+      - traefik.http.middlewares.test-stripprefix-v1.stripprefix.prefixes=/v1
+      - traefik.http.routers.twomes-api-v1-tst.tls=true
+      - traefik.http.routers.twomes-api-v1-tst.tls.certresolver=lets-encrypt
+      - traefik.http.services.twomes-api-v1-tst.loadbalancer.server.port=80
+      - traefik.http.routers.twomes-api-v1-tst.middlewares=test-ratelimit,test-stripprefix-v1
+      - traefik.http.middlewares.test-ratelimit.ratelimit.average=100
+      - traefik.http.middlewares.test-ratelimit.ratelimit.burst=50
+    networks:
+      - web
+    command: |
+      bash -c 'while !</dev/tcp/mariadb_dev/3306; do sleep 1; done; (cd /app; alembic upgrade head); uvicorn api:app --reload --host 0.0.0.0 --port 80'
+    environment:
+      - TWOMES_DB_URL=${TWOMES_DB_URL}
+    restart: unless-stopped
+networks:
+  web:
+    external:
+      name: web
