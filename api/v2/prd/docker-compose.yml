@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/twomes-backoffice-api:v2.0.0 # Actual tag needs to be determined later.
     container_name: twomes-api-v2-prd
     labels:
-      - traefik.http.routers.twomes-api-v2-prd.rule=Host(`api.energietransitiewindesheim.nl`) && Path(`/v2`)
+      - traefik.http.routers.twomes-api-v2-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
       - traefik.http.middlewares.prod-stripprefix-v2.stripprefix.prefixes=/v2
       - traefik.http.routers.twomes-api-v2-prd.tls=true
       - traefik.http.routers.twomes-api-v2-prd.tls.certresolver=lets-encrypt

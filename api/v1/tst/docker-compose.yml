@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/twomes_api:v1.1.0 # Latest API v1 version.
     container_name: twomes-api-v1-tst
     labels:
-      - traefik.http.routers.twomes-api-v1-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) || Host(`api.tst.energietransitiewindesheim.nl`) && Path(`/v1`)
+      - traefik.http.routers.twomes-api-v1-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) || Host(`api.tst.energietransitiewindesheim.nl`) && PathPrefix(`/v1`)
       - traefik.http.middlewares.test-stripprefix-v1.stripprefix.prefixes=/v1
       - traefik.http.routers.twomes-api-v1-tst.tls=true
       - traefik.http.routers.twomes-api-v1-tst.tls.certresolver=lets-encrypt
