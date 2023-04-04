@@ -5,6 +5,7 @@ services:
     container_name: twomes-api-v2-tst
     labels:
       - traefik.http.routers.twomes-api-v2-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
+      - traefik.http.routers.twomes-api-v2-tst.priority=20
       - traefik.http.middlewares.test-stripprefix-v2.stripprefix.prefixes=/v2
       - traefik.http.routers.twomes-api-v2-tst.tls=true
       - traefik.http.routers.twomes-api-v2-tst.tls.certresolver=lets-encrypt
