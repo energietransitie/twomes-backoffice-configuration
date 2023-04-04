@@ -17,7 +17,11 @@ services:
     environment:
       - TWOMES_DSN=${TWOMES_DSN}
     restart: unless-stopped
+    volumes:
+      - data:/data
 networks:
   web:
     external:
       name: web
+volumes:
+  data: {}
