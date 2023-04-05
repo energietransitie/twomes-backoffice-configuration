@@ -9,7 +9,7 @@ services:
       - traefik.http.middlewares.test-stripprefix-v2.stripprefix.prefixes=/v2
       - traefik.http.routers.twomes-api-v2-tst.tls=true
       - traefik.http.routers.twomes-api-v2-tst.tls.certresolver=lets-encrypt
-      - traefik.http.services.twomes-api-v2-tst.loadbalancer.server.port=80
+      - traefik.http.services.twomes-api-v2-tst.loadbalancer.server.port=8080
       - traefik.http.routers.twomes-api-v2-tst.middlewares=test-ratelimit,test-stripprefix-v2
       - traefik.http.middlewares.test-ratelimit.ratelimit.average=100
       - traefik.http.middlewares.test-ratelimit.ratelimit.burst=50
