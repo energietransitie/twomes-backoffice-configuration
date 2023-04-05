@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  twomes-api-v2-prd:
+    image: ghcr.io/energietransitie/twomes-backoffice-api:v2.0.0 # Actual tag needs to be determined later.
+    container_name: twomes-api-v2-prd
+    labels:
+      - traefik.http.routers.twomes-api-v2-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
+      - traefik.http.routers.twomes-api-v2-prd.priority=20
+      - traefik.http.middlewares.prod-stripprefix-v2.stripprefix.prefixes=/v2
+      - traefik.http.routers.twomes-api-v2-prd.tls=true
+      - traefik.http.routers.twomes-api-v2-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.twomes-api-v2-prd.loadbalancer.server.port=8080
+      - traefik.http.routers.twomes-api-v2-prd.middlewares=prod-ratelimit,prod-stripprefix-v2
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.average=100
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.burst=50
+    networks:
+      - web
+    environment:
+      - TWOMES_DSN=${TWOMES_DSN}
+    restart: unless-stopped
+    volumes:
+      - data:/data
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  data: {}
