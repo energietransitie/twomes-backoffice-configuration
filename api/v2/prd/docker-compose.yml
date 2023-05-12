@@ -17,6 +17,7 @@ services:
       - web
     environment:
       - TWOMES_DSN=${TWOMES_DSN}
+      - TWOMES_BASE_URL=${TWOMES_BASE_URL}
     restart: unless-stopped
     volumes:
       - data:/data
