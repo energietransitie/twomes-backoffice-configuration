@@ -285,6 +285,12 @@ Example values: `readonly_researcher:correcthorsebatterystaple@tcp(mariadb_dev:3
 >
 > It is recommended to use a user and password without special characters to avoid parsing errors.
 
+##### `TWOMES_BASE_URL`
+
+This environment variable is used to set the base URL used by the Swagger UI docs.
+
+Example values: `https://api.energietransitiewindesheim.nl/v2` or `https://api.tst.energietransitiewindesheim.nl/v2`
+
 ### JupyterLab
 
 [JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
