@@ -1,0 +1,25 @@
+version: "3"
+services:
+  portainer-tst:
+    container_name: portainer-tst
+    image: portainer/portainer-ce:2.18.3
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.portainer-tst.rule=Host(`docker.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.portainer-tst.tls=true
+      - traefik.http.routers.portainer-tst.tls.certresolver=lets-encrypt
+      - traefik.http.services.portainer-tst.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer-tst.middlewares=private-network-ipwhitelist-port
+      - traefik.http.middlewares.private-network-ipwhitelist-port.ipwhitelist.sourcerange= $IP_Whitelist 
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: always
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  data: {}

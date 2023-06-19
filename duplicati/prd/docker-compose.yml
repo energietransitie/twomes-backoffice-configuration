@@ -1,0 +1,32 @@
+version: "3"
+services:
+  duplicati-prd:
+    container_name: duplicati-prd
+    build: ..
+    environment:
+      - DB_PASSWORD_DEV=${DB_PASSWORD_DEV}
+      - DB_PASSWORD_PROD=${DB_PASSWORD_PROD}
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Amsterdam
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.duplicati-prd.rule=Host(`backup.energietransitiewindesheim.nl`)
+      - traefik.http.routers.duplicati-prd.tls=true
+      - traefik.http.routers.duplicati-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.duplicati-prd.loadbalancer.server.port=8200
+      - traefik.http.routers.duplicati-prd.middlewares=private-network-ipwhitelist-duplicati
+      - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= $IP_Whitelist
+    volumes:
+      - data:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true
+
+volumes:
+  data: {}

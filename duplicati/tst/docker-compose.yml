@@ -1,8 +1,8 @@
 version: "3"
 services:
-  backup:
-    container_name: backup
-    build: .
+  duplicati-tst:
+    container_name: duplicati-tst
+    build: ..
     environment:
       - DB_PASSWORD_DEV=${DB_PASSWORD_DEV}
       - DB_PASSWORD_PROD=${DB_PASSWORD_PROD}
@@ -12,11 +12,11 @@ services:
     networks:
       - web
     labels:
-      - traefik.http.routers.backup.rule=Host(`backup.energietransitiewindesheim.nl`)
-      - traefik.http.routers.backup.tls=true
-      - traefik.http.routers.backup.tls.certresolver=lets-encrypt
-      - traefik.http.services.backup.loadbalancer.server.port=8200
-      - traefik.http.routers.backup.middlewares=private-network-ipwhitelist-duplicati
+      - traefik.http.routers.duplicati-tst.rule=Host(`backup.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.duplicati-tst.tls=true
+      - traefik.http.routers.duplicati-tst.tls.certresolver=lets-encrypt
+      - traefik.http.services.duplicati-tst.loadbalancer.server.port=8200
+      - traefik.http.routers.duplicati-tst.middlewares=private-network-ipwhitelist-duplicati
       - traefik.http.middlewares.private-network-ipwhitelist-duplicati.ipwhitelist.sourcerange= $IP_Whitelist
     volumes:
       - data:/config

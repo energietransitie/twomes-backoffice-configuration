@@ -1,0 +1,25 @@
+version: "3"
+services:
+  portainer-prd:
+    container_name: portainer-prd
+    image: portainer/portainer-ce:2.18.3
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.portainer-prd.rule=Host(`docker.energietransitiewindesheim.nl`)
+      - traefik.http.routers.portainer-prd.tls=true
+      - traefik.http.routers.portainer-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.portainer-prd.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer-prd.middlewares=private-network-ipwhitelist-port
+      - traefik.http.middlewares.private-network-ipwhitelist-port.ipwhitelist.sourcerange= $IP_Whitelist 
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: always
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  data: {}

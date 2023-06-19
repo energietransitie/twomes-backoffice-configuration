@@ -111,25 +111,28 @@ Add a new stack according to the following steps:
 [Traefik proxy](https://traefik.io/traefik/) is a reverse proxy and load balancer. All http(s) access to the server goes through the Traefik proxy. This
 proxy takes care of virtual host for multiple subdomains of energietransitiewindesheim.nl, and takes care of Let's Encrypt certificate (re-)generation.
 
-To deploy the `traefik` container, copy the `traefik` folder of this repository, including all its contents to the server, such that it available as `/root/traefik`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command  (after navigating to the root directory of the files of this repository) and issue the following command: 
+To deploy the `traefik` container, clone this repository on the server in the home directory of the root user, such that the repository's contents are available at `/root/twomes-backoffice-configuration`. Use the following command in the home directory of the root user (`/root`):
 ```shell
-scp -pr traefik etw:
+cd
+git clone https://github.com/energietransitie/twomes-backoffice-configuration.git
 ```
 
-On the server, set the proper credentials and IPv4 addres(ses) in `/root/traefik/traefik_dynamic.toml`. 
-On the server, set the proper credentials for your email in `/root/traefik/traefik.toml`. 
+> In the rest of the commands concerning traefik, you should substitute `env` with your chosen environment (`prd` or `tst`).
+
+On the server, set the proper credentials and IPv4 addres(ses) in `/root/twomes-backoffice-configuration/traefik/<env>/traefik_dynamic.toml`. 
+On the server, set the proper credentials for your email in `/root/twomes-backoffice-configuration/traefik/<env>/traefik.toml`. 
 
 On the server, do the following.
 ```shell
 docker network create web
-cd traefik
+cd /root/twomes-backoffice-configuration/traefik/<env>
 touch acme.json
 chmod 600 acme.json
 ```
 
 Start the Traefik proxy
 ```shell
-cd /root/traefik
+cd /root/twomes-backoffice-configuration/traefik/<env>
 docker-compose up -d
 ```
 
@@ -186,8 +189,14 @@ Follow the steps in the [deploying section](#deploying) to create the stack on P
 
 The compose path for this stack is:
 
+##### Production
 ```
-cloudbeaver/docker-compose.yml
+cloudbeaver/prd/docker-compose.yml
+```
+
+##### Test
+```
+cloudbeaver/tst/docker-compose.yml
 ```
 
 #### Environment variables
@@ -210,21 +219,21 @@ Follow the steps in the [deploying section](#deploying) to create the stack on P
 
 The compose path for this stack is:
 
+##### Production
 ```
-duplicati/docker-compose.yml
+duplicati/prd/docker-compose.yml
+```
+
+##### Test
+```
+duplicati/tst/docker-compose.yml
 ```
 
 #### Environment variables
 
-##### `DB_PASSWORD_DEV`
+##### `DB_PASSWORD`
 
-This environment variable is used to set the database password for the test environment (mariadb_dev).
-
-Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
-
-##### `DB_PASSWORD_PROD`
-
-This environment variable is used to set the database password for the production environment (mariadb_prod).
+This environment variable is used to set the database password.
 
 Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
 
