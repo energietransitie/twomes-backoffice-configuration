@@ -4,8 +4,7 @@ services:
     container_name: duplicati-tst
     build: ..
     environment:
-      - DB_PASSWORD_DEV=${DB_PASSWORD_DEV}
-      - DB_PASSWORD_PROD=${DB_PASSWORD_PROD}
+      - DB_PASSWORD=${DB_PASSWORD}
       - PUID=0
       - PGID=0
       - TZ=Europe/Amsterdam
