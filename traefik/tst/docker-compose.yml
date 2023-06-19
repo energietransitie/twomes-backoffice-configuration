@@ -1,7 +1,7 @@
 version: "3"
 services:
-  traefik:
-    container_name: traefik
+  traefik-tst:
+    container_name: traefik-tst
     image: traefik:v2.6.6
     ports:
       - 80:80/tcp

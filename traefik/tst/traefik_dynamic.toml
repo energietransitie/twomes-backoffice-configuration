@@ -1,0 +1,16 @@
+[http.routers.api]
+  rule = "Host(`proxy.tst.energietransitiewindesheim.nl`)"
+  entrypoints = ["websecure"]
+  middlewares = ["simpleAuth", "traefik-ipwhitelist"]
+  service = "api@internal"
+  [http.routers.api.tls]
+    certResolver = "lets-encrypt"
+
+[http.middlewares.simpleAuth.basicAuth]
+  users = [
+    "<<user>>:<<hash created with the command in linux 'htpasswd'>>",
+  ]
+
+
+[http.middlewares.traefik-ipwhitelist.ipWhiteList]
+  sourceRange = #list here the ipv4 addresses from which you want to access cloudbeaver. Syntax: ["127.0.0.1", "10.0.0.0/24"]
