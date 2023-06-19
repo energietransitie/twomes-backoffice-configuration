@@ -1,0 +1,24 @@
+version: "3"
+services:
+  cloudbeaver-tst:
+    container_name: cloudbeaver-tst
+    image: dbeaver/cloudbeaver:22.0.4
+    networks:
+      - web
+    labels:
+      - traefik.http.routers.cloudbeaver-tst.rule=Host(`db.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.cloudbeaver-tst.tls=true
+      - traefik.http.routers.cloudbeaver-tst.tls.certresolver=lets-encrypt
+      - traefik.http.services.cloudbeaver-tst.loadbalancer.server.port=8978
+      - traefik.http.routers.cloudbeaver-tst.middlewares=private-network-ipwhitelist-cb
+      - traefik.http.middlewares.private-network-ipwhitelist-cb.ipwhitelist.sourcerange= $IP_Whitelist
+    volumes:
+      - data:/opt/cloudbeaver/workspace
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true
+    
+volumes:
+  data: {}

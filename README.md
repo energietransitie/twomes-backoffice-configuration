@@ -186,8 +186,14 @@ Follow the steps in the [deploying section](#deploying) to create the stack on P
 
 The compose path for this stack is:
 
+##### Production
 ```
-cloudbeaver/docker-compose.yml
+cloudbeaver/prd/docker-compose.yml
+```
+
+##### Test
+```
+cloudbeaver/tst/docker-compose.yml
 ```
 
 #### Environment variables
