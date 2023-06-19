@@ -216,21 +216,21 @@ Follow the steps in the [deploying section](#deploying) to create the stack on P
 
 The compose path for this stack is:
 
+##### Production
 ```
-duplicati/docker-compose.yml
+duplicati/prd/docker-compose.yml
+```
+
+##### Test
+```
+duplicati/tst/docker-compose.yml
 ```
 
 #### Environment variables
 
-##### `DB_PASSWORD_DEV`
+##### `DB_PASSWORD`
 
-This environment variable is used to set the database password for the test environment (mariadb_dev).
-
-Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
-
-##### `DB_PASSWORD_PROD`
-
-This environment variable is used to set the database password for the production environment (mariadb_prod).
+This environment variable is used to set the database password.
 
 Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
 

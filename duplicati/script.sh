@@ -1,12 +1,4 @@
 #!/bin/bash
-if [ "$DUPLICATI__backup_name" == "dev" ]
-then
-        DB_PASSWORD=$DB_PASSWORD_DEV
-fi
-if [ "$DUPLICATI__backup_name" == "prod" ]
-then
-        DB_PASSWORD=$DB_PASSWORD_PROD
-fi
 
 if [ "$DUPLICATI__EVENTNAME" == "BEFORE" ]
 then
