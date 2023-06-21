@@ -21,9 +21,10 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
+
 networks:
   web:
-    external:
-      name: web
+    external: true
+
 volumes:
   data: {}
