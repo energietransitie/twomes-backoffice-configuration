@@ -1,4 +1,4 @@
-FROM linuxserver/duplicati:2.0.6
+FROM linuxserver/duplicati:2.0.7
 
 WORKDIR /scripts
 
