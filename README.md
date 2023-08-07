@@ -13,6 +13,7 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
     * [CloudBeaver](#cloudbeaver)
     * [Duplicati](#duplicati)
     * [API](#api)
+    * [Manuals](#manuals)
     * [JupyterLab](#jupyterlab)
 * [Updating](#updating)
 * [Features](#features)
@@ -69,6 +70,12 @@ For the Twomes backoffice production API:
 
 For the Twomes backoffice test API:
 - `api.tst.energietransitiewindesheim.nl` : [api](#api)
+
+For the twomes production manuals:
+- `manuals.energietransitiewindesheim.nl` : [manuals](#manuals)
+
+For the twomes test manuals:
+- `manuals.tst.energietransitiewindesheim.nl` : [manuals](#manuals)
 
 For system services:
 - `proxy.energietransitiewindesheim.nl` : [traefik](#traefik)
@@ -299,6 +306,40 @@ Example values: `readonly_researcher:correcthorsebatterystaple@tcp(mariadb_dev:3
 This environment variable is used to set the base URL used by the Swagger UI docs.
 
 Example values: `https://api.energietransitiewindesheim.nl/v2` or `https://api.tst.energietransitiewindesheim.nl/v2`
+
+### Manuals
+
+The [Twomes Manual Server](https://github.com/energietransitie/twomes-manual-server) is an open souce solution that serves the twomes manuals.
+
+Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
+
+#### Compose path
+
+The compose path for this stack is:
+
+##### Production
+```
+manuals/prd/docker-compose.yml
+```
+
+##### Test
+```
+manuals/tst/docker-compose.yml
+```
+
+#### Environment variables
+
+##### `TWOMES_MANUAL_SOURCE`
+
+This environment variable is used to set the source of the twomes manuals.
+
+Example values: `/source` or `https://github.com/<org>/<repo>`
+
+##### `TWOMES_FALLBACK_LANG`
+
+This environment variable is used to set the fallback language for serving the twomes manuals.
+
+Example values: `en-GB` or `nl-NL`
 
 ### JupyterLab
 
