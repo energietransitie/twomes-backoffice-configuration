@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   twomes-manual-server-prd:
-    image: ghcr.io/energietransitie/twomes-manual-server:1.0.0
+    image: ghcr.io/energietransitie/twomes-manual-server:1.1.0
     container_name: twomes-manual-server-prd
     labels:
       - traefik.http.routers.twomes-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
@@ -12,6 +12,7 @@ services:
       - web
     environment:
       - TWOMES_MANUAL_SOURCE=${TWOMES_MANUAL_SOURCE}
+      - TWOMES_MANUAL_SOURCE_BRANCH=${TWOMES_MANUAL_SOURCE_BRANCH}
       - TWOMES_FALLBACK_LANG=${TWOMES_FALLBACK_LANG}
     restart: unless-stopped
     volumes:
