@@ -12,6 +12,7 @@ services:
       - web
     environment:
       - TWOMES_MANUAL_SOURCE=${TWOMES_MANUAL_SOURCE}
+      - TWOMES_MANUAL_SOURCE_BRANCH=${TWOMES_MANUAL_SOURCE_BRANCH}
       - TWOMES_FALLBACK_LANG=${TWOMES_FALLBACK_LANG}
     restart: unless-stopped
     volumes:
