@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  twomes-manual-server-prd:
+    image: ghcr.io/energietransitie/twomes-manual-server:1.0.0
+    container_name: twomes-manual-server-prd
+    labels:
+      - traefik.http.routers.twomes-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
+      - traefik.http.routers.twomes-manual-server-prd.tls=true
+      - traefik.http.routers.twomes-manual-server-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.twomes-manual-server-prd.loadbalancer.server.port=8080
+    networks:
+      - web
+    environment:
+      - TWOMES_MANUAL_SOURCE=${TWOMES_MANUAL_SOURCE}
+      - TWOMES_FALLBACK_LANG=${TWOMES_FALLBACK_LANG}
+    restart: unless-stopped
+    volumes:
+      - source:/source
+
+networks:
+  web:
+    external: true
+
+volumes:
+  source: {}
