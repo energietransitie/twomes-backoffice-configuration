@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   twomes-manual-server-prd:
-    image: ghcr.io/energietransitie/twomes-manual-server:1.1.0
+    image: ghcr.io/energietransitie/twomes-manual-server:latest # Latest is always the latest stable version.
     container_name: twomes-manual-server-prd
     labels:
       - traefik.http.routers.twomes-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
