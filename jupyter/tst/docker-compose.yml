@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  jupyterlab:
+    build: ..
+    stdin_open: true
+    tty: true
+    container_name: ${COMPOSE_PROJECT_NAME}-tst
+    labels:
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.rule=Host(`${COMPOSE_PROJECT_NAME}.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.tls=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.tls.certresolver=lets-encrypt
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
+      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-tst.ipwhitelist.sourcerange= $IP_Whitelist
+    networks:
+      - web
+    environment:
+      - TWOMES_DB_URL=${TWOMES_DB_URL}
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped
+    volumes:
+      - data:/home/jovyan
+networks:
+  web:
+    external:
+      name: web
+volumes:
+  data: {}
