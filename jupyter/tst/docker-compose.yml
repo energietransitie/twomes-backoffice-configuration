@@ -9,7 +9,7 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.rule=Host(`${COMPOSE_PROJECT_NAME}.tst.energietransitiewindesheim.nl`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.tls.certresolver=lets-encrypt
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-tst.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-tst
       - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-tst.ipwhitelist.sourcerange= $IP_Whitelist
     networks:
       - web
