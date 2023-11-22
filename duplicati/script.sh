@@ -11,13 +11,12 @@ then
 
 elif [ "$DUPLICATI__EVENTNAME" == "AFTER" ]
 then
-
-        if [ "$DUPLICATI__OPERATIONNAME" == "Restore" ]
-        then
-                echo "BEFORE docker command to do Restore"
-                docker exec -i mariadb_$DUPLICATI__backup_name mysql --user root --password=$DB_PASSWORD < /dump_$DUPLICATI__backup_name/db.dump
+	if [ "$DUPLICATI__OPERATIONNAME" == "Restore" ]
+	then
+		echo "BEFORE docker command to do Restore"
+		docker exec mariadb_$DUPLICATI__backup_name mysql --user root --password=$DB_PASSWORD < /dump_$DUPLICATI__backup_name/db.dump
 		echo "AFTER docker command to do Restore"
-        fi
+	fi
 fi
 
 exit 0
