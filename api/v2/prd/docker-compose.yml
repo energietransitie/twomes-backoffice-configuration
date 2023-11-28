@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   twomes-api-v2-prd:
-    image: ghcr.io/energietransitie/twomes-backoffice-api:2.0.0 # Actual tag needs to be determined later.
+    image: ghcr.io/energietransitie/twomes-backoffice-api:latest # Latest is always the latest stable version.
     container_name: twomes-api-v2-prd
     labels:
       - traefik.http.routers.twomes-api-v2-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
