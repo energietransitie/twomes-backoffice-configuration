@@ -18,6 +18,7 @@ services:
     environment:
       - TWOMES_DSN=${TWOMES_DSN}
       - TWOMES_BASE_URL=${TWOMES_BASE_URL}
+      - TWOMES_DOWNLOAD_TIME=${TWOMES_DOWNLOAD_TIME}
     restart: unless-stopped
     volumes:
       - data:/data
