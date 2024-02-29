@@ -7,14 +7,14 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 ## Table of contents
 * [Prerequisites](#prerequisites)
 * [Deploying](#deploying)
-    * [Traefik](#traefik)
-    * [Portainer](#portainer)
-    * [MariaDB](#mariadb)
-    * [CloudBeaver](#cloudbeaver)
-    * [Duplicati](#duplicati)
-    * [API](#api)
-    * [Manuals](#manuals)
-    * [JupyterLab](#jupyterlab)
+    * [Traefik](./traefik/README.md)
+    * [Portainer](./portainer/README.md)
+    * [MariaDB](./mariadb/README.md)
+    * [CloudBeaver](./cloudbeaver/README.md)
+    * [Duplicati](./duplicati/README.md)
+    * [API](./api/README.md)
+    * [Manuals](./manuals/README.md)
+    * [JupyterLab](./jupyter/README.md)
 * [Updating](#updating)
 * [Features](#features)
 * [Status](#status)
@@ -66,28 +66,28 @@ ssh etw
 We recommend using multiple hostnames for your domain (`energietransitiewindesheim.nl` in our example), each giving access to an API or web interface of a specific services hosted in a specific container.
 
 For the Twomes backoffice production API:
-- `api.energietransitiewindesheim.nl` : [api](#api)
+- `api.energietransitiewindesheim.nl` : [api](./api/README.md)
 
 For the Twomes backoffice test API:
-- `api.tst.energietransitiewindesheim.nl` : [api](#api)
+- `api.tst.energietransitiewindesheim.nl` : [api](./api/README.md)
 
 For the twomes production manuals:
-- `manuals.energietransitiewindesheim.nl` : [manuals](#manuals)
+- `manuals.energietransitiewindesheim.nl` : [manuals](./manuals/README.md)
 
 For the twomes test manuals:
-- `manuals.tst.energietransitiewindesheim.nl` : [manuals](#manuals)
+- `manuals.tst.energietransitiewindesheim.nl` : [manuals](./manuals/README.md)
 
 For system services:
-- `proxy.energietransitiewindesheim.nl` : [traefik](#traefik)
-- `docker.energietransitiewindesheim.nl` : [portainer](#portainer)
-- `db.energietransitiewindesheim.nl` : [cloudbeaver](#cloudbeaver)
+- `proxy.energietransitiewindesheim.nl` : [traefik](./traefik/README.md)
+- `docker.energietransitiewindesheim.nl` : [portainer](./portainer/README.md)
+- `db.energietransitiewindesheim.nl` : [cloudbeaver](./cloudbeaver/README.md)
 - `deploy.energietransitiewindesheim.nl` : deploy webhook
-- `backup.energietransitiewindesheim.nl` : [duplicati](#duplicati)
+- `backup.energietransitiewindesheim.nl` : [duplicati](./cloudbeaver/README.md)
 
 For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own container):
-- `jupyter.energietransitiewindesheim.nl` : [jupyter](#jupyterlab)
-- `notebook.energietransitiewindesheim.nl` : [notebook](#jupyterlab)
-- `analysis.energietransitiewindesheim.nl` : [analysis](#jupyterlab)
+- `jupyter.energietransitiewindesheim.nl` : [jupyter](./jupyter/README.md)
+- `notebook.energietransitiewindesheim.nl` : [notebook](./jupyter/README.md)
+- `analysis.energietransitiewindesheim.nl` : [analysis](./jupyter/README.md)
 
 ## Deploying
 
@@ -113,290 +113,7 @@ Add a new stack according to the following steps:
     > Refer to the chapters below to see the stack-specific environment variables.
 9. Click on `Deploy the stack`.
 
-### Traefik
-
-[Traefik proxy](https://traefik.io/traefik/) is a reverse proxy and load balancer. All http(s) access to the server goes through the Traefik proxy. This
-proxy takes care of virtual host for multiple subdomains of energietransitiewindesheim.nl, and takes care of Let's Encrypt certificate (re-)generation.
-
-To deploy the `traefik` container, clone this repository on the server in the home directory of the root user, such that the repository's contents are available at `/root/twomes-backoffice-configuration`. Use the following command in the home directory of the root user (`/root`):
-```shell
-cd
-git clone https://github.com/energietransitie/twomes-backoffice-configuration.git
-```
-
-> In the rest of the commands concerning traefik, you should substitute `env` with your chosen environment (`prd` or `tst`).
-
-On the server, set the proper credentials and IPv4 addres(ses) in `/root/twomes-backoffice-configuration/traefik/<env>/traefik_dynamic.toml`. 
-On the server, set the proper credentials for your email in `/root/twomes-backoffice-configuration/traefik/<env>/traefik.toml`. 
-
-On the server, do the following.
-```shell
-docker network create web
-cd /root/twomes-backoffice-configuration/traefik/<env>
-touch acme.json
-chmod 600 acme.json
-```
-
-Start the Traefik proxy
-```shell
-cd /root/twomes-backoffice-configuration/traefik/<env>
-docker-compose up -d
-```
-
-### Portainer
-
-[Portainer](https://www.portainer.io/) is a web-based continer management solution. To deploy the `portainer` container, copy the `portainer` folder of this repository, including all its contents to the server, such that it available as `/root/portainer`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
-```shell
-scp -pr portainer etw:
-```
-
-On the server, rename `/root/portainer/.env.example` to `/root/portainer/.env`set the proper IPv4 addres(ses) in `/root/portainer/.env`. 
-
-On the server, install portainer
-```shell
-cd /root/portainer
-docker-compose up -d
-```
-
-### MariaDB
-
-[MariaDB](https://mariadb.org/) is an open source relational database. 
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path below.
-
-#### Compose path
-
-The compose path for this stack is:
-
-##### Production
-```
-mariadb/prd/docker-compose.yml
-```
-
-##### Test
-```
-mariadb/tst/docker-compose.yml
-```
-
-#### Environment variables
-
-This stack does not require you to set any environment variables.
-
-#### Additional steps
-
-After the database is created for the first time, you can find the root password in the container logs. You can use this root password to log into the container and do any further configuration you wish. At Windesheim, we added additional users with varying permissions.
-
-### CloudBeaver
-
-[CloudBeaver](https://cloudbeaver.io/) is a web-based database manager.
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
-
-#### Compose path
-
-The compose path for this stack is:
-
-##### Production
-```
-cloudbeaver/prd/docker-compose.yml
-```
-
-##### Test
-```
-cloudbeaver/tst/docker-compose.yml
-```
-
-#### Environment variables
-
-##### `IP_Whitelist`
-
-This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
-
-Example values: `127.0.0.1/32, 192.168.1.7`
-
-> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
-
-### Duplicati
-
-[Duplicati](https://www.duplicati.com/) is an online backup sotware solution.  
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
-
-#### Compose path
-
-The compose path for this stack is:
-
-##### Production
-```
-duplicati/prd/docker-compose.yml
-```
-
-##### Test
-```
-duplicati/tst/docker-compose.yml
-```
-
-#### Environment variables
-
-##### `DB_PASSWORD`
-
-This environment variable is used to set the database password.
-
-Example values: `78sb6g654b56sdv7s89dv` or `as78sdv78sfdv67sdv5dc8sdv09sv`
-
-##### `IP_Whitelist`
-
-This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
-
-Example values: `127.0.0.1/32, 192.168.1.7`
-
-> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
-
-#### Additional steps
-
-On the backup destination, create a directory for each environment (with the name `dev` and `prod`). For academic research in the Netherlands, [SURFdrive](https://www.surf.nl/surfdrive-bewaar-en-deel-je-bestanden-veilig-in-de-cloud?dst=n1460) or [Research Drive](https://wiki.surfnet.nl/display/RDRIVE/SURF+Research+Drive+wiki) might be a suitable backup destination in combination with the WebDAV protocol.
-
-Use a web brower to navigate to [https://backup.energietransitiewindesheim.nl](https://backup.energietransitiewindesheim.nl), follow the wizard and use `Add backup` to add backup tasks using the option `Import from a file`. For convenience, we provided the files [backup_prod-duplicati-config.json](duplicati/backup_prod-duplicati-config.json) and [backup_dev-duplicati-config.json](duplicati/backup_dev-duplicati-config.json) as templates; add your own credentials and passphrases.
-
-#### Restore
-
-Click restore and the environment and then the version you want to restore.
-
-Check the `db.dump` and hit continue and restore.
-
-### API
-
-The [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) is an open souce solution that serves the Twomes REST API to the Twomes WarmteWachter app and Twomes measurement devices based on Twomes firmware and that used a Twomes database based on MariaDB. 
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
-
-> **Info**
-> Click [here](https://github.com/energietransitie/twomes-backoffice-configuration/tree/36ebeff11f1cb7c0d57a48db7ac1254c6b9c2061#api) for environment variables for API v1.
->
-> The compose path there is `api/v1/<env>/docker-compose.yml`.
-
-#### Compose path
-
-The compose path for this stack is:
-
-##### Production
-```
-api/v2/prd/docker-compose.yml
-```
-
-##### Test
-```
-api/v2/tst/docker-compose.yml
-```
-
-#### Environment variables
-
-##### `TWOMES_DSN`
-
-This environment variable is used to set the DSN (data source name) to connect to.
-
-Example values: `readonly_researcher:correcthorsebatterystaple@tcp(mariadb_dev:3306)/twomes`
-
-> The composition of the connection string is as follows: `<db_user>:<db_password>@<protocol>(<db_host>:<db_port>)/<db_name>`.
->
-> It is recommended to use a user and password without special characters to avoid parsing errors.
-
-##### `TWOMES_BASE_URL`
-
-This environment variable is used to set the base URL used by the Swagger UI docs.
-
-Example values: `https://api.energietransitiewindesheim.nl/v2` or `https://api.tst.energietransitiewindesheim.nl/v2`
-
-### Manuals
-
-The [Twomes Manual Server](https://github.com/energietransitie/twomes-manual-server) is an open souce solution that serves the twomes manuals.
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
-
-#### Compose path
-
-The compose path for this stack is:
-
-##### Production
-```
-manuals/prd/docker-compose.yml
-```
-
-##### Test
-```
-manuals/tst/docker-compose.yml
-```
-
-#### Environment variables
-
-##### `TWOMES_MANUAL_SOURCE`
-
-This environment variable is used to set the source of the twomes manuals.
-
-Example values: `/source` or `https://github.com/<org>/<repo>`
-
-##### `TWOMES_FALLBACK_LANG`
-
-This environment variable is used to set the fallback language for serving the twomes manuals.
-
-Example values: `en-GB` or `nl-NL`
-
-### JupyterLab
-
-[JupyterLab](https://jupyter.org/) is a web-based interactive development environment for notebooks, code, and data. 
-
-Follow the steps in the [deploying section](#deploying) to create the stack on Portainer, using the compose path and environment variables below.
-
-#### Compose path
-
-The compose path for this stack is:
-
-```
-jupyter/docker-compose.yml
-```
-
-#### Environment variables
-
-##### `COMPOSE_PROJECT_NAME`
-
-The environment variable `COMPOSE_PROJECT_NAME` is used to set the domain name used to connect to the JupyterLab instance. It is usually the same as the container name.
-
-Example values: `jupyter`, `notebook` or `analysis`
-
-##### `TWOMES_DB_URL`
-
-This environment variable is used to set the connection string which is used to connect to the Twomes database.
-
-Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes`
-
-> The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
->
-> It is recommended to use a user and password without special characters to avoid parsing errors.
-
-##### `IP_Whitelist`
-
-This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
-
-Example values: `127.0.0.1/32, 192.168.1.7`
-
-> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
-
-#### Additional steps
-
-After the container is fully started, you can use [Portainer](#portainer) to find the JupyterLab token in the logs. Search for `token` if don't see it immediately. To access the JupyterLab container, browse to this URL: `http://<subdomain>.energietransitiewindesheim.nl/lab?token=<jupyter_token>`. Make sure the name corresponds to an existing subdomain (at Windesheim, we use `jupyter`, `notebook` and `analysis` as subdomains for 3 JupyterLab instances).
-
-> If this does not work immediately, wait a minute and try again (Traefik may not have processed the let's Encrypt certificate yet).
-
-- Via the JupyterLab web interface:
-    - Use the launcher (always avalable via the `+` tab), launch a terminal window and the command: 
-    ```shell
-    pip install jupyterlab-git
-    ```
-  - Enable Show hidden files via Settings / Advanced Settings editor / File Browser / Show hidden files.
-  - Enable the Extension manager (puzzle icon in left pane).
-  - If you wish to have a stable token after each forced restart, you can use [Portainer](#portainer), go to the container and via `Duplicate/Edit` > `Advanced container settings` > `Env` > `Add environment variable`, with name `JUPYTER_TOKEN` and a secret token with a proper length (e.g., 48 characters).
-- Restart container via Portainer and access it again via the proper URL.
-- Now, you can clone repositories, e.g. [twomes-twutility-inverse-grey-box-analysis](https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis) via https://github.com/energietransitie/twomes-twutility-inverse-grey-box-analysis.git.
+See all subfolder README's for configuration specific to that service.
 
 ## Updating
 
@@ -440,10 +157,10 @@ Applied Sciences](https://windesheim.nl/energietransitie)
 ## Credits
   
 This configuration repository was originally created by:
-* Arjan Peddemors  ·  [@arpe](https://github.com/arpe)
+* Arjan Peddemors · [@arpe](https://github.com/arpe)
 
 It was extended by:
-* Nick van Ravenzwaaij ·  [@n-vr](https://github.com/n-vr)
+* Nick van Ravenzwaaij · [@n-vr](https://github.com/n-vr)
 * Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
 * Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
 * Jorrin Kievit · [@JorrinKievit](https://github.com/JorrinKievit)
