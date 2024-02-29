@@ -1,25 +1,20 @@
-# Twomes Backoffice Server Configuration
+# Twomes Backoffice Server Configuration <!-- omit from toc -->
 
 This repository contains configuration scripts and instructions for configuring a Twomes Backoffice server, comprising of multiple Docker containers hosted on a Linux server, based on the following technologies: [Traefik proxy](https://traefik.io/traefik/), [Portainer](https://www.portainer.io/), [MariaDB](https://mariadb.org/), [CloudBeaver](https://cloudbeaver.io/), [Duplicati](https://www.duplicati.com/), [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) and [JupyterLab](https://jupyter.org/).
 
 NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute your own domain; where you read `etw` below, you should subsitute your own server abbreviation. 
 
+<!-- omit from toc -->
 ## Table of contents
-* [Prerequisites](#prerequisites)
-* [Deploying](#deploying)
-    * [Traefik](./traefik/README.md)
-    * [Portainer](./portainer/README.md)
-    * [MariaDB](./mariadb/README.md)
-    * [CloudBeaver](./cloudbeaver/README.md)
-    * [Duplicati](./duplicati/README.md)
-    * [API](./api/README.md)
-    * [Manuals](./manuals/README.md)
-    * [JupyterLab](./jupyter/README.md)
-* [Updating](#updating)
-* [Features](#features)
-* [Status](#status)
-* [License](#license)
-* [Credits](#credits)
+- [Prerequisites](#prerequisites)
+  - [SSH setup](#ssh-setup)
+  - [Domain setup](#domain-setup)
+- [Deploying](#deploying)
+- [Updating](#updating)
+- [Features](#features)
+- [Status](#status)
+- [License](#license)
+- [Credits](#credits)
 
 ## Prerequisites
 
