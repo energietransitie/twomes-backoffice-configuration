@@ -63,31 +63,33 @@ ssh etw
 
 ### Domain setup
 
-We recommend using multiple hostnames for your domain (`energietransitiewindesheim.nl` in our example), each giving access to an API or web interface of a specific services hosted in a specific container.
+We have production (prd) and test (tst) environment, each on a separate server. The production and test environment can be destinguished by their URL.
+- Production URL's: `<service>.energietransitiewindesheim.nl`
+- Test URL's: `<service>.tst.energietransitiewindesheim.nl`
 
-For the Twomes backoffice production API:
-- `api.energietransitiewindesheim.nl` : [api](./api/README.md)
+If you wish to copy our configuration, then you will need to find and replace `energietransitiewindesheim.nl` with your own domain in all configuration files.
 
-For the Twomes backoffice test API:
-- `api.tst.energietransitiewindesheim.nl` : [api](./api/README.md)
+The URL's we use for our public services:
 
-For the twomes production manuals:
-- `manuals.energietransitiewindesheim.nl` : [manuals](./manuals/README.md)
+| Service                        | Environment |                                         URL |
+| ------------------------------ | ----------- | ------------------------------------------: |
+| [API](./api/README.md)         | production  |         `api.energietransitiewindesheim.nl` |
+| [API](./api/README.md)         | test        |     `api.tst.energietransitiewindesheim.nl` |
+| [Manuals](./manuals/README.md) | production  |     `manuals.energietransitiewindesheim.nl` |
+| [Manuals](./manuals/README.md) | test        | `manuals.tst.energietransitiewindesheim.nl` |
 
-For the twomes test manuals:
-- `manuals.tst.energietransitiewindesheim.nl` : [manuals](./manuals/README.md)
+The URL's we use for system services:
 
-For system services:
-- `proxy.energietransitiewindesheim.nl` : [traefik](./traefik/README.md)
-- `docker.energietransitiewindesheim.nl` : [portainer](./portainer/README.md)
-- `db.energietransitiewindesheim.nl` : [cloudbeaver](./cloudbeaver/README.md)
-- `deploy.energietransitiewindesheim.nl` : deploy webhook
-- `backup.energietransitiewindesheim.nl` : [duplicati](./cloudbeaver/README.md)
-
-For JupyterLab notebooks (we use 3 JupyterLab notebooks, each in its own container):
-- `jupyter.energietransitiewindesheim.nl` : [jupyter](./jupyter/README.md)
-- `notebook.energietransitiewindesheim.nl` : [notebook](./jupyter/README.md)
-- `analysis.energietransitiewindesheim.nl` : [analysis](./jupyter/README.md)
+| Service                                | Environment |                                                 URL |
+| -------------------------------------- | ----------- | --------------------------------------------------: |
+| [Portainer](./portainer/README.md)     | production  |              `docker.energietransitiewindesheim.nl` |
+| [Portainer](./portainer/README.md)     | test        |          `docker.tst.energietransitiewindesheim.nl` |
+| [CloudBeaver](./cloudbeaver/README.md) | production  |                  `db.energietransitiewindesheim.nl` |
+| [CloudBeaver](./cloudbeaver/README.md) | test        |              `db.tst.energietransitiewindesheim.nl` |
+| [Duplicati](./duplicati/README.md)     | production  |              `backup.energietransitiewindesheim.nl` |
+| [Duplicati](./duplicati/README.md)     | test        |          `backup.tst.energietransitiewindesheim.nl` |
+| [JupyterLab](./jupyter/README.md)      | production  |     `analysis-<name>.energietransitiewindesheim.nl` |
+| [JupyterLab](./jupyter/README.md)      | test        | `analysis-<name>.tst.energietransitiewindesheim.nl` |
 
 ## Deploying
 
