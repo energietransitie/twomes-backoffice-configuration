@@ -110,18 +110,16 @@ Add a new stack according to the following steps:
     refs/heads/main
     ```
 7. Set the `compose path` to point to the docker-compose.yml you want to deploy.
-    > Refer to the chapters below to see the stack-specific compose path.
+    > Refer to the stack-specific README's for each stack's compose path.
 8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
-    > Refer to the chapters below to see the stack-specific environment variables.
+    > Refer to the stack-specific README's for each stack's environment variables.
 9. Click on `Deploy the stack`.
-
-See all subfolder README's for configuration specific to that service.
 
 ## Updating
 
 When a `docker-compose.yml` for a stack is changed, the new configuration can be retrieved by following the steps below:
 
-1. Go to `Stacks` [portainer](https://docker.energietransitiewindesheim.nl).
+1. Go to `Stacks` in [portainer](https://docker.energietransitiewindesheim.nl).
 2. Click on the stack you want to update.
 3. You can change environment variables if you want.
 4. Click on `Pull and redeploy` to retrieve the configuration from the main branch and update the container(s).
