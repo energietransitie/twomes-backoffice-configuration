@@ -19,6 +19,11 @@ services:
     restart: unless-stopped
     volumes:
       - data:/home/jovyan
+    # Enable Git extension, clone the repository, and install requirements
+    before_script:
+      - su jovyan -c "jupyter serverextension enable --py jupyterlab_git"
+      - su jovyan -c "git clone https://github.com/energietransitie/twomes-inverse-grey-box-analysis.git"
+      - su jovyan -c "cd twomes-inverse-grey-box-analysis && pip install -r requirements.txt"
 networks:
   web:
     external:
