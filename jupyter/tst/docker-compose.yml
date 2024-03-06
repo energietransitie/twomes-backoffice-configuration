@@ -21,8 +21,8 @@ services:
       - data:/home/jovyan
 networks:
   web:
-    external: true
       name: web
+      external: true
 volumes:
   data: {}
 
