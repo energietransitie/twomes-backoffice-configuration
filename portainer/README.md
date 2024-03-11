@@ -1,14 +1,17 @@
 # Portainer
 
-[Portainer](https://www.portainer.io/) is a web-based continer management solution. To deploy the `portainer` container, copy the `portainer` folder of this repository, including all its contents to the server, such that it available as `/root/portainer`. To do this, use [WinSCP](https://en.wikipedia.org/wiki/WinSCP) on Windows, or a local Linux command (after navigating to the root directory of the files of this repository) and issue the following command:
+[Portainer](https://www.portainer.io/) is a web-based continer management solution. 
+
+To deploy the `portainer` container, clone this repository on the server in the home directory of the root user, such that the repository's contents are available at `/root/twomes-backoffice-configuration`. Use the following command in the home directory of the root user (`/root`):
 ```shell
-scp -pr portainer etw:
+cd
+git clone https://github.com/energietransitie/twomes-backoffice-configuration.git
 ```
 
-On the server, rename `/root/portainer/.env.example` to `/root/portainer/.env`set the proper IPv4 addres(ses) in `/root/portainer/.env`. 
+> In the command below, you should substitute `<env>` with your chosen environment (`prd` or `tst`).
 
-On the server, install portainer
+On the server, start portainer
 ```shell
-cd /root/portainer
+cd /root/portainer/<env>
 docker-compose up -d
 ```
