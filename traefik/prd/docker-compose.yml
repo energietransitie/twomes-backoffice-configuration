@@ -9,9 +9,8 @@ services:
     networks:
       - web
     volumes:
-      - ../traefik.toml:/traefik.toml
       - ./traefik_dynamic.toml:/traefik_dynamic.toml
-      - .//acme.json:/acme.json
+      - ./acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
     restart: always
