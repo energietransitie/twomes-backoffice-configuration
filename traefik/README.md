@@ -9,9 +9,9 @@ cd
 git clone https://github.com/energietransitie/twomes-backoffice-configuration.git
 ```
 
-> In the rest of the commands concerning traefik, you should substitute `env` with your chosen environment (`prd` or `tst`).
+> In the rest of the commands concerning traefik, you should substitute `<env>` with your chosen environment (`prd` or `tst`).
 
-On the server, set the proper credentials and IPv4 addres(ses) in `/root/twomes-backoffice-configuration/traefik/<env>/traefik_dynamic.toml`. 
+On the server, set the proper credentials and IPv4 address(es) in `/root/twomes-backoffice-configuration/traefik/<env>/traefik_dynamic.toml` to access the traefik dashboard. 
 On the server, set the proper credentials for your email in `/root/twomes-backoffice-configuration/traefik/<env>/traefik.toml`. 
 
 On the server, do the following.
@@ -25,5 +25,5 @@ chmod 600 acme.json
 Start the Traefik proxy
 ```shell
 cd /root/twomes-backoffice-configuration/traefik/<env>
-docker-compose up -d
+docker-compose -p traefik-<env> up -d
 ```

@@ -13,5 +13,5 @@ git clone https://github.com/energietransitie/twomes-backoffice-configuration.gi
 On the server, start portainer
 ```shell
 cd /root/portainer/<env>
-docker-compose up -d
+docker-compose -p portainer-<env> up -d
 ```
