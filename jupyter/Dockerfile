@@ -3,16 +3,15 @@
 FROM jupyter/scipy-notebook:lab-3.6.3
 
 # Remove the empty work directory.
-RUN rm -rf /home/jovyan/work
+# Clone the repository and install requirements
+# RUN rm -rf /home/jovyan/work && \
+RUN git clone https://github.com/energietransitie/needforheat-analysis.git && \
+    cd needforheat-analysis && \
+    pip install -r requirements.txt
 
 # Setup jupyterlab-git extension and enable it
 RUN pip install --upgrade jupyterlab-git && \
     jupyter labextension install @jupyterlab/git && \
     jupyter serverextension enable --py jupyterlab_git
-
-# Clone the repository and install requirements
-RUN git clone https://github.com/energietransitie/needforheat-analysis.git && \
-    cd needforheat-analysis && \
-    pip install -r requirements.txt
 
 CMD ["start-notebook.sh"]
