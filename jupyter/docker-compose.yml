@@ -1,17 +1,17 @@
 version: "3.8"
 services:
   jupyterlab:
-    build: .
+    build: ..
     pull_policy: build
     stdin_open: true
     tty: true
-    container_name: "${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}"
+    container_name: ${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}
     labels:
-      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}.rule=Host(`$${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+.${SERVER_TYPE}}${SERVER_TYPE:+-}${SERVER_TYPE:+.}energietransitiewindesheim.nl`)"
-      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}.tls=true"
-      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}.tls.certresolver=lets-encrypt"
-      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}"
-      - "traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}${SERVER_TYPE:+-}${SERVER_TYPE}.ipwhitelist.sourcerange=$IP_Whitelist"
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.tls=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.tls.certresolver=lets-encrypt
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}
+      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.ipwhitelist.sourcerange= $IP_Whitelist
     networks:
       - web
     environment:
@@ -22,7 +22,7 @@ services:
       - data:/home/jovyan
 networks:
   web:
-    name: web
-    external: true
+      name: web
+      external: true
 volumes:
   data: {}
