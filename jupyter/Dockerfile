@@ -8,8 +8,4 @@ RUN pip install jupyterlab==4.1.4 && \
     cd needforheat-analysis && \
     pip install -r requirements.txt
 
-# Setup jupyterlab-git extension and enable it
-# RUN jupyter labextension install @jupyterlab/git && \
-#    jupyter labextension enable @jupyterlab/git
-
-CMD ["start-notebook.sh"]
+CMD ["start-notebook.py"]
