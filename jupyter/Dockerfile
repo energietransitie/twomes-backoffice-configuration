@@ -4,6 +4,7 @@ FROM jupyter/scipy-notebook:lab-4.1.4
 RUN rm -rf /home/jovyan/work && \
     git clone https://github.com/energietransitie/needforheat-analysis.git && \
     cd needforheat-analysis && \
+    pip install jupyterlab-git==0.50.0 && \
     pip install -r requirements.txt
 
 # Setup jupyterlab-git extension and enable it
