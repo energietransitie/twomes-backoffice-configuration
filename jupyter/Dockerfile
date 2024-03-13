@@ -1,17 +1,13 @@
-# Use 3.6.3, as 3.7.0 has issues with jupyterlab-git.
-# https://github.com/jupyterlab/jupyterlab-git/issues/1245#issuecomment-1587729038.
-FROM jupyter/scipy-notebook:lab-3.6.3
+FROM jupyter/scipy-notebook:lab-4.1.4
 
-# Remove the empty work directory.
-# Clone the repository and install requirements
+# Remove the empty work directory, clone the repository and install requirements
 RUN rm -rf /home/jovyan/work && \
     git clone https://github.com/energietransitie/needforheat-analysis.git && \
     cd needforheat-analysis && \
     pip install -r requirements.txt
 
 # Setup jupyterlab-git extension and enable it
-RUN pip install --upgrade jupyterlab-git && \
-    jupyter labextension install @jupyterlab/git
-    # && \   jupyter labextension install @jupyterlab/git
+# RUN jupyter labextension install @jupyterlab/git && \
+#    jupyter labextension enable @jupyterlab/git
 
 CMD ["start-notebook.sh"]
