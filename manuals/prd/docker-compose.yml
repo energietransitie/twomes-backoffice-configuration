@@ -1,19 +1,19 @@
 version: "3.8"
 services:
-  twomes-manual-server-prd:
-    image: ghcr.io/energietransitie/twomes-manual-server:latest # Latest is always the latest stable version.
-    container_name: twomes-manual-server-prd
+  needforheat-manual-server-prd:
+    image: ghcr.io/energietransitie/needforheat-manual-server:latest # Latest is always the latest stable version.
+    container_name: needforheat-manual-server-prd
     labels:
-      - traefik.http.routers.twomes-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
-      - traefik.http.routers.twomes-manual-server-prd.tls=true
-      - traefik.http.routers.twomes-manual-server-prd.tls.certresolver=lets-encrypt
-      - traefik.http.services.twomes-manual-server-prd.loadbalancer.server.port=8080
+      - traefik.http.routers.needforheat-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
+      - traefik.http.routers.needforheat-manual-server-prd.tls=true
+      - traefik.http.routers.needforheat-manual-server-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.needforheat-manual-server-prd.loadbalancer.server.port=8080
     networks:
       - web
     environment:
-      - TWOMES_MANUAL_SOURCE=${TWOMES_MANUAL_SOURCE}
-      - TWOMES_MANUAL_SOURCE_BRANCH=${TWOMES_MANUAL_SOURCE_BRANCH}
-      - TWOMES_FALLBACK_LANG=${TWOMES_FALLBACK_LANG}
+      - NFH_MANUAL_SOURCE=${NFH_MANUAL_SOURCE}
+      - NFH_MANUAL_SOURCE_BRANCH=${NFH_MANUAL_SOURCE_BRANCH}
+      - NFH_FALLBACK_LANG=${NFH_FALLBACK_LANG}
     restart: unless-stopped
     volumes:
       - source:/source
