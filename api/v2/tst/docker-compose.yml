@@ -1,24 +1,24 @@
 version: "3.8"
 services:
-  twomes-api-v2-tst:
-    image: ghcr.io/energietransitie/twomes-backoffice-api:main
-    container_name: twomes-api-v2-tst
+  needforheat-api-v2-tst:
+    image: ghcr.io/energietransitie/needforheat-backoffice-api:main
+    container_name: needforheat-api-v2-tst
     labels:
-      - traefik.http.routers.twomes-api-v2-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
-      - traefik.http.routers.twomes-api-v2-tst.priority=20
+      - traefik.http.routers.needforheat-api-v2-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
+      - traefik.http.routers.needforheat-api-v2-tst.priority=20
       - traefik.http.middlewares.test-stripprefix-v2.stripprefix.prefixes=/v2
-      - traefik.http.routers.twomes-api-v2-tst.tls=true
-      - traefik.http.routers.twomes-api-v2-tst.tls.certresolver=lets-encrypt
-      - traefik.http.services.twomes-api-v2-tst.loadbalancer.server.port=8080
-      - traefik.http.routers.twomes-api-v2-tst.middlewares=test-ratelimit,test-stripprefix-v2
+      - traefik.http.routers.needforheat-api-v2-tst.tls=true
+      - traefik.http.routers.needforheat-api-v2-tst.tls.certresolver=lets-encrypt
+      - traefik.http.services.needforheat-api-v2-tst.loadbalancer.server.port=8080
+      - traefik.http.routers.needforheat-api-v2-tst.middlewares=test-ratelimit,test-stripprefix-v2
       - traefik.http.middlewares.test-ratelimit.ratelimit.average=100
       - traefik.http.middlewares.test-ratelimit.ratelimit.burst=50
     networks:
       - web
     environment:
-      - TWOMES_DSN=${TWOMES_DSN}
-      - TWOMES_BASE_URL=${TWOMES_BASE_URL}
-      - TWOMES_DOWNLOAD_TIME=${TWOMES_DOWNLOAD_TIME}
+      - NFH_DSN=${NFH_DSN}
+      - NFH_BASE_URL=${NFH_BASE_URL}
+      - NFH_DOWNLOAD_TIME=${NFH_DOWNLOAD_TIME}
     restart: unless-stopped
     volumes:
       - data:/data
