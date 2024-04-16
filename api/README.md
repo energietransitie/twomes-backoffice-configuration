@@ -25,7 +25,7 @@ api/v2/tst/docker-compose.yml
 
 ## Environment variables
 
-### `TWOMES_DSN`
+### `NFH_DSN`
 
 This environment variable is used to set the DSN (data source name) to connect to.
 
@@ -35,7 +35,7 @@ Example values: `readonly_researcher:correcthorsebatterystaple@tcp(mariadb_dev:3
 >
 > It is recommended to use a user and password without special characters to avoid parsing errors.
 
-### `TWOMES_BASE_URL`
+### `NFH_BASE_URL`
 
 This environment variable is used to set the base URL used by the Swagger UI docs.
 

@@ -20,13 +20,13 @@ manuals/tst/docker-compose.yml
 
 ## Environment variables
 
-### `TWOMES_MANUAL_SOURCE`
+### `NFH_MANUAL_SOURCE`
 
 This environment variable is used to set the source of the twomes manuals.
 
 Example values: `/source` or `https://github.com/<org>/<repo>`
 
-### `TWOMES_FALLBACK_LANG`
+### `NFH_FALLBACK_LANG`
 
 This environment variable is used to set the fallback language for serving the twomes manuals.
 
