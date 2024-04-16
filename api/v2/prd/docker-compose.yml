@@ -16,9 +16,9 @@ services:
     networks:
       - web
     environment:
-      - NFH_DSN=${NFH_DSN}
-      - NFH_BASE_URL=${NFH_BASE_URL}
-      - NFH_DOWNLOAD_TIME=${NFH_DOWNLOAD_TIME}
+      - TWOMES_DSN=${TWOMES_DSN}
+      - TWOMES_BASE_URL=${TWOMES_BASE_URL}
+      - TWOMES_DOWNLOAD_TIME=${TWOMES_DOWNLOAD_TIME}
     restart: unless-stopped
     volumes:
       - data:/data
