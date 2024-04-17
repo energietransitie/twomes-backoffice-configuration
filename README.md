@@ -10,6 +10,8 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
   - [SSH setup](#ssh-setup)
   - [Domain setup](#domain-setup)
 - [Deploying](#deploying)
+  - [Setting up Traefik and Portainer](#setting-up-traefik-and-portainer)
+  - [Deploying stacks with Portainer](#deploying-stacks-with-portainer)
 - [Updating](#updating)
 - [Features](#features)
 - [Status](#status)
@@ -87,6 +89,36 @@ The URL's we use for system services:
 | [JupyterLab](./jupyter/README.md)      | test        | `analysis-<name>.tst.energietransitiewindesheim.nl` |
 
 ## Deploying
+
+### Setting up Traefik and Portainer
+
+This setup has to be done with SSH access to the server. During these steps, portainer is shorly exposed to the public internet without protection of credentials or IP whitelists.
+
+1. Log into the server using SSH.
+2. Create a volume for portainer:
+    ```bash
+    docker volume create portainer_data
+    ```
+3. Start the container:
+    ```bash
+    docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
+    ```
+4. Open Portainer in your browser: `https://server-external-ip-address:9443`.
+5. Add portainer and traefik as a stack by following the steps described [here](#deploying-stacks-with-portainer).
+6. Stop the bootstrapping container:
+    ```bash
+    docker stop portainer-bootstrap
+    ```
+7. Restart portainer:
+    ```bash
+    docker restart portainer
+    ```
+8. Portainer is now available at `docker.energietransitiewindesheim.nl`.
+
+### Deploying stacks with Portainer
 
 Use the following steps to deploy a service as a Portainer stack. 
 > At Windesheim we use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
