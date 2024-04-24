@@ -1,4 +1,7 @@
-# Twomes Backoffice Server Configuration <!-- omit from toc -->
+# NeedForHeat Server Configuration <!-- omit from toc -->
+![GitHub License](https://img.shields.io/github/license/energietransitie/needforheat-server-configuration)
+![Project Status badge](https://img.shields.io/badge/status-in%20progress-brightgreen)
+![Version Status Badge](https://img.shields.io/badge/version-stable-brightgreen)
 
 This repository contains configuration scripts and instructions for configuring a Twomes Backoffice server, comprising of multiple Docker containers hosted on a Linux server, based on the following technologies: [Traefik proxy](https://traefik.io/traefik/), [Portainer](https://www.portainer.io/), [MariaDB](https://mariadb.org/), [CloudBeaver](https://cloudbeaver.io/), [Duplicati](https://www.duplicati.com/), [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) and [JupyterLab](https://jupyter.org/).
 
@@ -14,7 +17,6 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
   - [Deploying stacks with Portainer](#deploying-stacks-with-portainer)
 - [Updating](#updating)
 - [Features](#features)
-- [Status](#status)
 - [License](#license)
 - [Credits](#credits)
 
@@ -170,11 +172,6 @@ Optional:
 - [ ] force use of SSH tunnel to `cloudbeaver` container
 - [ ] force use of SSH tunnel to `traefik` container
 
-## Status
-Project is: _in progress_
-
-Current version is stable. Room for improvement.
-
 ## License
 
 This software is available under the [Apache 2.0 license](./LICENSE), 
@@ -187,6 +184,7 @@ This configuration repository was originally created by:
 * Arjan Peddemors · [@arpe](https://github.com/arpe)
 
 It was extended by:
+* Harris Mesic · [@Labhatorian](https://github.com/Labhatorian)
 * Nick van Ravenzwaaij · [@n-vr](https://github.com/n-vr)
 * Erik Krooneman · [@Erikker21](https://github.com/Erikker21)
 * Leon Kampstra · [@LeonKampstra](https://github.com/LeonKampstra)
@@ -202,6 +200,6 @@ We use and gratefully acknowlegde the efforts of the makers of the following tec
 * [MariaDB](https://github.com/MariaDB/server), licensed under [GNU GPL-2.0](https://github.com/MariaDB/server/blob/10.9/COPYING)
 * [CloudBeaver](https://github.com/dbeaver/cloudbeaver), by DBeaver Corp, licensed under [Apache-2.0](https://github.com/dbeaver/cloudbeaver/blob/devel/LICENSE))
 * [Duplicati](https://github.com/duplicati/duplicati), by duplicati.com, licensed under [LGPL-2.1](https://github.com/duplicati/duplicati/blob/master/LICENSE.txt)
-* [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api), by Research group Energy Transition, Windesheim University of 
-Applied Sciences, licensed under [Apache-2.0](https://github.com/energietransitie/twomes-backoffice-api/blob/main/LICENSE)
+* [NeedForHeat Server API](https://github.com/energietransitie/needforheat-server-api), by Research group Energy Transition, Windesheim University of 
+Applied Sciences, licensed under [Apache-2.0](https://github.com/energietransitie/needforheat-server-api/blob/main/LICENSE)
 * [JupyterLab](https://github.com/jupyterlab/jupyterlab), by Project Jupyter Contributors, licensed under [this license](https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE)
