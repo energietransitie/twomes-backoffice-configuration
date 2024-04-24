@@ -18,7 +18,7 @@ jupyter/docker-compose.yml
 
 ### `TWOMES_DB_URL`
 
-This environment variable is used to set the connection string which is used to connect to the Twomes database.
+This environment variable is used to set the connection string which is used to connect to the NeedForHeat database.
 
 Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes_v2`
 

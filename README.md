@@ -3,7 +3,7 @@
 ![Project Status badge](https://img.shields.io/badge/status-in%20progress-brightgreen)
 ![Version Status Badge](https://img.shields.io/badge/version-stable-brightgreen)
 
-This repository contains configuration scripts and instructions for configuring a Twomes Backoffice server, comprising of multiple Docker containers hosted on a Linux server, based on the following technologies: [Traefik proxy](https://traefik.io/traefik/), [Portainer](https://www.portainer.io/), [MariaDB](https://mariadb.org/), [CloudBeaver](https://cloudbeaver.io/), [Duplicati](https://www.duplicati.com/), [Twomes Backoffice API](https://github.com/energietransitie/twomes-backoffice-api) and [JupyterLab](https://jupyter.org/).
+This repository contains configuration scripts and instructions for configuring a NeedForHeat Server, comprising of multiple Docker containers hosted on a Linux server, based on the following technologies: [Traefik proxy](https://traefik.io/traefik/), [Portainer](https://www.portainer.io/), [MariaDB](https://mariadb.org/), [CloudBeaver](https://cloudbeaver.io/), [Duplicati](https://www.duplicati.com/), [NeedForHeat Server API](https://github.com/energietransitie/needforheat-server-api) and [JupyterLab](https://jupyter.org/).
 
 NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute your own domain; where you read `etw` below, you should subsitute your own server abbreviation. 
 
@@ -132,7 +132,7 @@ Add a new stack according to the following steps:
 4. Select `git repository` as the build method.
 5. Set the `repository URL` to: 
     ```
-    https://github.com/energietransitie/twomes-backoffice-configuration
+    https://github.com/energietransitie/needforheat-server-configuration
     ```
 6. Set the `repository reference` to:
     ```
@@ -165,7 +165,7 @@ List of features ready and TODOs for future development. Ready:
 
 To-do:
 - [ ] Create only docker-compose file for Traefik instead of .toml files
-- [ ] Integrated deployment of the entire Twomes Backoffice stack
+- [ ] Integrated deployment of the entire NeedForHeat Server stack
 
 Optional:
 - [ ] force use of SSH tunnel to `portainer` container
