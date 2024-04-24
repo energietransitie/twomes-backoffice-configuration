@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  needforheat-api-v2-prd:
+    image: ghcr.io/energietransitie/needforheat-server-api:latest # Latest is always the latest stable version.
+    container_name: needforheat-api-v3-prd
+    labels:
+      - traefik.http.routers.needforheat-api-v3-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v3`)
+      - traefik.http.routers.needforheat-api-v3-prd.priority=20
+      - traefik.http.middlewares.prod-stripprefix-v3.stripprefix.prefixes=/v3
+      - traefik.http.routers.needforheat-api-v3-prd.tls=true
+      - traefik.http.routers.needforheat-api-v3-prd.tls.certresolver=lets-encrypt
+      - traefik.http.services.needforheat-api-v3-prd.loadbalancer.server.port=8080
+      - traefik.http.routers.needforheat-api-v3-prd.middlewares=prod-ratelimit,prod-stripprefix-v3
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.average=100
+      - traefik.http.middlewares.prod-ratelimit.ratelimit.burst=50
+    networks:
+      - web
+    environment:
+      - NFH_DSN=${NFH_DSN}
+      - NFH_BASE_URL=${NFH_BASE_URL}
+      - NFH_DOWNLOAD_TIME=${NFH_DOWNLOAD_TIME}
+    restart: unless-stopped
+    volumes:
+      - data:/data
+
+networks:
+  web:
+    external: true
+
+volumes:
+  data: {}
