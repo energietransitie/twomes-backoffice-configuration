@@ -1,0 +1,33 @@
+version: "3"
+services:
+  traefik:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    image: traefik:v2.6.6
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - ./acme.json:/acme.json
+    restart: always
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=${EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/acme.json
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --entrypoints.websecure.http.middlewares=traefik-ipwhitelist@file
+      - --entrypoints.websecure.http.middlewares=simpleAuth@file
+    environment:
+      - EMAIL=${EMAIL}
+
+networks:
+  web:
+    external:
+      name: web

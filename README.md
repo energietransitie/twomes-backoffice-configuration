@@ -10,8 +10,9 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 <!-- omit from toc -->
 ## Table of contents
 - [Prerequisites](#prerequisites)
+  - [Server and Domain](#server-and-domain)
   - [SSH setup](#ssh-setup)
-  - [Domain setup](#domain-setup)
+  - [Subdomains](#subdomains)
 - [Deploying](#deploying)
   - [Setting up Traefik and Portainer](#setting-up-traefik-and-portainer)
   - [Deploying stacks with Portainer](#deploying-stacks-with-portainer)
@@ -21,6 +22,23 @@ NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute y
 - [Credits](#credits)
 
 ## Prerequisites
+
+### Server and Domain
+
+Before you begin, ensure you have the following:
+
+- **Server**: You'll need access to a server, such as a virtual private server (VPS). We've tested on:
+  - A Virtual Private Server running Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-107-generic x86_64), equipped with 58GB of memory and 1.9TB of disk space.
+  - A Synology DS923+ NAS running GNU/Linux synology_r1000_923+ with 32GB of memory and 8.1TB of disk space.
+
+- **Domain**: You should have a domain, like `energietransitiewindesheim.nl`, properly configured in DNS to point to your server(s). If you're using our configuration, replace `energietransitiewindesheim.nl` with your domain in all configuration files.
+
+- **Environment Setup**: We maintain both a test and a production environment, each on separate servers:
+  - Production URL: `<service>.energietransitiewindesheim.nl`
+  - Test URLs: `<service>.tst.energietransitiewindesheim.nl`
+
+> Note: If your domain is newly registered, it may take up to 48 hours for DNS changes to propagate worldwide. You can use tools like [DNS checker](https://dnschecker.org/) to monitor the status of these changes.
+
 
 ### SSH setup
 
@@ -60,35 +78,23 @@ With this config in place, login to the server is simply
 ssh etw
 ```
 
-### Domain setup
+### Subdomains
 
-We have production (prd) and test (tst) environment, each on a separate server. The production and test environment can be destinguished by their URL.
-- Production URL's: `<service>.energietransitiewindesheim.nl`
-- Test URL's: `<service>.tst.energietransitiewindesheim.nl`
+The URLs we use for our public services:
 
-If you wish to copy our configuration, then you will need to find and replace `energietransitiewindesheim.nl` with your own domain in all configuration files.
+| Service                        | Production URL                           | Test URL                                       |
+| ------------------------------ | ---------------------------------------- | ---------------------------------------------- |
+| [API](./api/README.md)         | `api.energietransitiewindesheim.nl`      | `api.tst.energietransitiewindesheim.nl`        |
+| [Manuals](./manuals/README.md) | `manuals.energietransitiewindesheim.nl`  | `manuals.tst.energietransitiewindesheim.nl`    |
 
-The URL's we use for our public services:
+The URLs we use for system services:
 
-| Service                        | Environment |                                         URL |
-| ------------------------------ | ----------- | ------------------------------------------: |
-| [API](./api/README.md)         | production  |         `api.energietransitiewindesheim.nl` |
-| [API](./api/README.md)         | test        |     `api.tst.energietransitiewindesheim.nl` |
-| [Manuals](./manuals/README.md) | production  |     `manuals.energietransitiewindesheim.nl` |
-| [Manuals](./manuals/README.md) | test        | `manuals.tst.energietransitiewindesheim.nl` |
-
-The URL's we use for system services:
-
-| Service                                | Environment |                                                 URL |
-| -------------------------------------- | ----------- | --------------------------------------------------: |
-| [Portainer](./portainer/README.md)     | production  |              `docker.energietransitiewindesheim.nl` |
-| [Portainer](./portainer/README.md)     | test        |          `docker.tst.energietransitiewindesheim.nl` |
-| [CloudBeaver](./cloudbeaver/README.md) | production  |                  `db.energietransitiewindesheim.nl` |
-| [CloudBeaver](./cloudbeaver/README.md) | test        |              `db.tst.energietransitiewindesheim.nl` |
-| [Duplicati](./duplicati/README.md)     | production  |              `backup.energietransitiewindesheim.nl` |
-| [Duplicati](./duplicati/README.md)     | test        |          `backup.tst.energietransitiewindesheim.nl` |
-| [JupyterLab](./jupyter/README.md)      | production  |     `analysis-<name>.energietransitiewindesheim.nl` |
-| [JupyterLab](./jupyter/README.md)      | test        | `analysis-<name>.tst.energietransitiewindesheim.nl` |
+| Service                        | Production URL                           | Test URL                                       |
+| ------------------------------ | ---------------------------------------- | ---------------------------------------------- |
+| [Portainer](./portainer/README.md) | `docker.energietransitiewindesheim.nl`  | `docker.tst.energietransitiewindesheim.nl`     |
+| [CloudBeaver](./cloudbeaver/README.md) | `db.energietransitiewindesheim.nl`  | `db.tst.energietransitiewindesheim.nl`         |
+| [Duplicati](./duplicati/README.md) | `backup.energietransitiewindesheim.nl`  | `backup.tst.energietransitiewindesheim.nl`     |
+| [JupyterLab](./jupyter/README.md) | `analysis-<name>.energietransitiewindesheim.nl`  | `analysis-<name>.tst.energietransitiewindesheim.nl` |
 
 ## Deploying
 
@@ -126,7 +132,7 @@ Use the following steps to deploy a service as a Portainer stack.
 > At Windesheim we use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
 
 Add a new stack according to the following steps:
-1. Go to `stacks` in portainer.
+1. Go to `Home` > `local ` > `stacks` in portainer.
 2. Click on `Add stack`.
 3. Give the stack a name.
 4. Select `git repository` as the build method.
