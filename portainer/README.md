@@ -2,7 +2,7 @@
 
 [Portainer](https://www.portainer.io/) is a web-based continer management solution. 
 
-Follow the steps in the [deploying section of the main README](../README.md#deploying) for general instructions on deploying stacks using Portainer.
+Follow the steps in the [deploying section of the main README](../README.md#deploying-stacks-with-portainer) for general instructions on deploying stacks using Portainer.
 
 ## Compose path
 
