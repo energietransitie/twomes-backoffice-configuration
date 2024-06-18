@@ -2,7 +2,7 @@
 
 [Traefik proxy](https://traefik.io/traefik/) serves as a reverse proxy and load balancer, handling HTTP(S) traffic for multiple subdomains under energietransitiewindesheim.nl and managing Let's Encrypt certificates.
 
-Follow the steps in the [deploying section of the main README](../README.md#deploying) for general instructions on deploying stacks using Portainer.
+Follow the steps in the [deploying section of the main README](../README.md#deploying-stacks-with-portainer) for general instructions on deploying stacks using Portainer.
 
 ## Compose path
 

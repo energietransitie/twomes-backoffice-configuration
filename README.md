@@ -104,32 +104,28 @@ The URLs we use for system services:
 This setup has to be done with SSH access to the server. During these steps, portainer is shorly exposed to the public internet without protection of credentials or IP whitelists.
 
 1. Log into the server using SSH and run the following commands on your docker host.
-2. Create a volume for portainer:
+1. Create a volume for portainer:
     ```bash
     docker volume create portainer_bootstrap_data
     ```
-3. Start the container:
+1. Start the container:
     ```bash
     docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v portainer_bootstrap_data:/data \
     portainer/portainer-ce:latest
     ```
-4. Create the `web` network: is created:
-    ```bash
-    docker network create web
-    ```
-5. Open Portainer in your browser: `https://server-external-ip-address:9443`.
-6. Add portainer and traefik as a stack by following the steps described [here](#deploying-stacks-with-portainer).
-7. Stop the bootstrapping container:
+1. Open Portainer in your browser: `https://server-external-ip-address:9443`.
+1. Add portainer and traefik as a stack by following the steps described [here](#deploying-stacks-with-portainer).
+1. Stop the bootstrapping container:
     ```bash
     docker stop portainer-bootstrap
     ```
-8. Restart portainer:
+1. Restart portainer:
     ```bash
     docker restart portainer
     ```
-9. Portainer is now available at `docker.energietransitiewindesheim.nl`.
+1. Portainer is now available at `docker.energietransitiewindesheim.nl`.
 
 ### Deploying stacks with Portainer
 
@@ -138,33 +134,33 @@ Use the following steps to deploy a service as a Portainer stack.
 
 Add a new stack according to the following steps:
 1. Go to `Home` > `local ` > `stacks` in portainer.
-2. Click on `Add stack`.
-3. Give the stack a name.
-4. Select `git repository` as the build method.
-5. Set the `repository URL` to: 
+1. Click on `Add stack`.
+1. Give the stack a name.
+1. Select `git repository` as the build method.
+1. Set the `repository URL` to: 
     ```
     https://github.com/energietransitie/needforheat-server-configuration
     ```
-6. Set the `repository reference` to:
+1. Set the `repository reference` to:
     ```
     refs/heads/main
     ```
-7. Set the `compose path` to point to the docker-compose.yml you want to deploy.
+1. Set the `compose path` to point to the docker-compose.yml you want to deploy.
     > Refer to the stack-specific README's for each stack's compose path.
-8. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
+1. Optionally add environment variables if used in the docker-compose file. Click on `Add an environment variable` to add additional variables.
     > Refer to the stack-specific README's for each stack's environment variables.
-9. Click on `Deploy the stack`.
+1. Click on `Deploy the stack`.
 
 ## Updating
 
 When a `docker-compose.yml` for a stack is changed, the new configuration can be retrieved by following the steps below:
 
 1. Go to `Stacks` in [portainer](https://docker.energietransitiewindesheim.nl).
-2. Click on the stack you want to update.
-3. You can change environment variables if you want.
-4. Click on `Pull and redeploy` to retrieve the configuration from the main branch and update the container(s).
-5. A pop-up will open. Click on `Update` to confirm.
-6. The stack will update. Wait for the notification to know that the stack was updated successfully.
+1. Click on the stack you want to update.
+1. You can change environment variables if you want.
+1. Click on `Pull and redeploy` to retrieve the configuration from the main branch and update the container(s).
+1. A pop-up will open. Click on `Update` to confirm.
+1. The stack will update. Wait for the notification to know that the stack was updated successfully.
 
 ## Features
 List of features ready and TODOs for future development. Ready:

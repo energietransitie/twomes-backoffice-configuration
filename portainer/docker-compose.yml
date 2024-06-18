@@ -18,10 +18,11 @@ services:
       # Removed the bind mount for /usr/bin/docker as it's usually unnecessary
       # - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
+
 networks:
   web:
-    external: true
-    name: web
+    driver: bridge
+
 volumes:
   ${COMPOSE_PROJECT_NAME}-data:
     external: true
