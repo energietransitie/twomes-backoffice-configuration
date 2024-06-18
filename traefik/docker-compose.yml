@@ -9,7 +9,7 @@ services:
       - web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./acme.json:/acme.json
+      - /opt/traefik/acme.json:/acme.json # /opt/traefikc.acme.json needs to exist at Docker server
     restart: always
     command:
       - "--api.insecure=true"
