@@ -106,13 +106,13 @@ This setup has to be done with SSH access to the server. During these steps, por
 1. Log into the server using SSH and run the following commands on your docker host.
 2. Create a volume for portainer:
     ```bash
-    docker volume create portainer_data
+    docker volume create portainer_bootstrap_data
     ```
 3. Start the container:
     ```bash
     docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v portainer_data:/data \
+    -v portainer_bootstrap_data:/data \
     portainer/portainer-ce:latest
     ```
 4. Create the `web` network: is created:
