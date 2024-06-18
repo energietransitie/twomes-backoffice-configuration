@@ -104,12 +104,15 @@ The URLs we use for system services:
 This setup has to be done with SSH access to the server. During these steps, portainer is shorly exposed to the public internet without protection of credentials or IP whitelists.
 
 1. Log into the server using SSH and run the following commands on your Docker host.
-1. Create volumes for Portainer:
+1. Create volumes acme.json file for Traefik and volumes for Portainer:
     ```bash
+    mkdir -p /opt/traefik && \
+    { [ -f /opt/traefik/acme.json ] || touch /opt/traefik/acme.json; } && \
+    chmod 600 /opt/traefik/acme.json && \
     docker volume create portainer-bootstrap_data && \
     docker volume create portainer_data
     ```
-   This command creates two Docker volumes:
+   This command creates an acme.json file for Traefik to store certificates in. This command also creates two Docker volumes:
    - `portainer-bootstrap_data` for the bootstrapping process.
    - `portainer_data` for persistent data storage for the Portainer application.
 
