@@ -10,7 +10,6 @@ services:
       - web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
       - ./acme.json:/acme.json
     restart: always
     command:
@@ -26,6 +25,15 @@ services:
       - --entrypoints.websecure.http.middlewares=simpleAuth@file
     environment:
       - EMAIL=${EMAIL}
+      - BASIC_AUTH_USERS=${BASIC_AUTH_USERS}
+      - IP_WHITELIST=${IP_WHITELIST}
+    labels:
+      # Define router for Traefik dashboard accessible at <COMPOSE_PROJECT_NAME>.<DOMAIN>
+      - traefik.http.routers.traefik.rule=Host(`${COMPOSE_PROJECT_NAME}.${DOMAIN}`)
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=lets-encrypt
+      - traefik.http.routers.traefik.service=api@internal
 
 networks:
   web:
