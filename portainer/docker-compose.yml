@@ -15,11 +15,13 @@ services:
     volumes:
       - data:/data
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
+      # Removed the bind mount for /usr/bin/docker as it's usually unnecessary
+      # - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
 networks:
   web:
     external: true
     name: web
 volumes:
-  data: {}
+  data:
+    external: true
