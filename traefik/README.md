@@ -22,13 +22,13 @@ Set the email address for Let's Encrypt certificate notifications.
 
 Example value: `your_email@example.com`
 
-### `IP_Whitelist`
+### `IP_WHITELIST`
 
 Set the allowed IPs (or ranges of allowed IPs using CIDR notation).
 
 Example values: `127.0.0.1/32, 192.168.1.7`
 
-> Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
+> Read more about this envirnment variable in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
 
 ### `SERVER_TYPE`
 
@@ -48,16 +48,25 @@ If `traefik` is specified as the stack name, the fully qualified domains will be
 
 ### `BASIC_AUTH_USERS`
 
+### `BASIC_AUTH_USERS`
+
 Define basic authentication users for accessing Traefik's dashboard and API. Each user should be in the format `username:hashed_password`, where `hashed_password` is the result of using `htpasswd` or a similar tool to hash the password.
 
-Example value:
- ```bash
-admin:$apr1$y3LBsSjB$3N1Q3Vq./YByzZDfZm5Op0,user:$apr1$wG6iM7Ju$RjTtXymC2g3eGnUf7dQ5e
- ```
 
-> To generate a hashed password, you can use the `htpasswd` tool on Linux or other available tools online.
+> > Read more about this environment variable in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/basicauth/).
+
+Example value:
+```bash
+user1:$$apr1$$y3LBsSjB$$3N1Q3Vq./YByzZDfZm5Op0,user2:$$apr1$$wG6iM7Ju$$RjTtXymC2g3eGnUf7dQ5e
+```
+
+To generate a hashed password, you can use the htpasswd tool on Linux or other available tools online. Use the following command to generate a hashed password with properly escaped dollar signs for Docker Compose, and replace user and password with the username and password of your choice:
+```bash
+echo $(htpasswd -nbB user password) | sed -e s/\\$/\\$\\$/g
+``` 
 
 Ensure that the hashed passwords are securely managed and not exposed in plain text.
+
 
 ## Summary
 
