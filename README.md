@@ -106,34 +106,34 @@ This setup has to be done with SSH access to the server. During these steps, por
 1. Log into the server using SSH and run the following commands on your Docker host.
 1. Create volumes for Portainer:
     ```bash
-    docker volume create portainer_bootstrap_data && \
+    docker volume create portainer-bootstrap_data && \
     docker volume create portainer_data
     ```
    This command creates two Docker volumes:
-   - `portainer_bootstrap_data` for the bootstrapping process.
+   - `portainer-bootstrap_data` for the bootstrapping process.
    - `portainer_data` for persistent data storage for the Portainer application.
 
 1. Start the temporary Portainer container using the bootstrapping volume:
     ```bash
     docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v portainer_bootstrap_data:/data \
+    -v portainer-bootstrap_data:/data \
     portainer/portainer-ce:latest
     ```
-   This command starts a Portainer container named `portainer-bootstrap` using the `portainer_bootstrap_data` volume for bootstrapping.
+   This command starts a Portainer container named `portainer-bootstrap` using the `portainer-bootstrap_data` volume for bootstrapping.
 
 1. Access the bootstrap Portainer web interface in your browser at `https://server-external-ip-address:9443`. Enter a username and password for the initial administrator when prompted.
 
-1. Use these [Portainer stack parameters](portainer/README.md) to deploy a stack for Portainer.
+1. Use these [Portainer stack parameters](portainer/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Portainer.
 
-1. Use these [Traefik stack parameters](traefik/README.md) to deploy a stack for Traefik.
+1. Use these [Traefik stack parameters](traefik/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Traefik.
 
 1. Stop the bootstrapping container and remove the related volume:
     ```bash
     docker stop portainer-bootstrap && \
-    docker volume rm portainer_bootstrap_data
+    docker volume rm portainer-bootstrap_data
     ```
-   This stops the `portainer-bootstrap` container and removes the `portainer_bootstrap_data` volume used for bootstrapping.
+   This stops the `portainer-bootstrap` container and removes the `portainer-bootstrap_data` volume used for bootstrapping.
 
 1. Restart Portainer to apply the configurations:
     ```bash
