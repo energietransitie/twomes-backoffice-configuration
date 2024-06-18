@@ -13,7 +13,7 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
       - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange=$IP_Whitelist
     volumes:
-      - ${COMPOSE_PROJECT_NAME}-data:/data
+      - portainer-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
       # Removed the bind mount for /usr/bin/docker as it's usually unnecessary
       # - /usr/bin/docker:/usr/bin/docker
@@ -24,5 +24,5 @@ networks:
     driver: bridge
 
 volumes:
-  ${COMPOSE_PROJECT_NAME}-data:
+  portainer-data:
     external: true
