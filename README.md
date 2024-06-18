@@ -109,14 +109,18 @@ This setup has to be done with SSH access to the server. During these steps, por
     mkdir -p /opt/traefik && \
     { [ -f /opt/traefik/acme.json ] || touch /opt/traefik/acme.json; } && \
     chmod 600 /opt/traefik/acme.json && \
+    docker network create web && \
     docker volume create portainer-bootstrap_data && \
     docker volume create portainer_data
     ```
-   This command creates an acme.json file for Traefik to store certificates in. This command also creates two Docker volumes:
-   - `portainer-bootstrap_data` for the bootstrapping process.
-   - `portainer_data` for persistent data storage for the Portainer application.
+   This command:
+   - creates an acme.json file for Traefik to store certificates in;
+   - creates the web network for containers to share;
+   - creates two Docker volumes:
+     - `portainer-bootstrap_data` for the bootstrapping process;
+     - `portainer_data` for persistent data storage for the Portainer application.
 
-1. Start the temporary Portainer container using the bootstrapping volume:
+2. Start the temporary Portainer container using the bootstrapping volume:
     ```bash
     docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
@@ -125,25 +129,25 @@ This setup has to be done with SSH access to the server. During these steps, por
     ```
    This command starts a Portainer container named `portainer-bootstrap` using the `portainer-bootstrap_data` volume for bootstrapping.
 
-1. Access the bootstrap Portainer web interface in your browser at `https://server-external-ip-address:9443`. Enter a username and password for the initial administrator when prompted.
+3. Access the bootstrap Portainer web interface in your browser at `https://server-external-ip-address:9443`. Enter a username and password for the initial administrator when prompted.
 
-1. Use these [Portainer stack parameters](portainer/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Portainer.
+4. Use these [Portainer stack parameters](portainer/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Portainer.
 
-1. Use these [Traefik stack parameters](traefik/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Traefik.
+5. Use these [Traefik stack parameters](traefik/README.md) to [deploy a stack](#deploying-stacks-with-portainer) for Traefik.
 
-1. Stop the bootstrapping container and remove the related volume:
+6. Stop the bootstrapping container and remove the related volume:
     ```bash
     docker stop portainer-bootstrap && \
     docker volume rm portainer-bootstrap_data
     ```
    This stops and removes the `portainer-bootstrap` container and removes the `portainer-bootstrap_data` volume used for bootstrapping.
 
-1. Restart Portainer to apply the configurations:
+7. Restart Portainer to apply the configurations:
     ```bash
     docker restart portainer
     ```
 
-1. Portainer is now available at `portainer.<YOUR_DOMAIN>`, for example, `portainer.energietransitiewindesheim.nl`.
+8. Portainer is now available at `portainer.<YOUR_DOMAIN>`, for example, `portainer.energietransitiewindesheim.nl`.
 
 
 ### Deploying stacks with Portainer

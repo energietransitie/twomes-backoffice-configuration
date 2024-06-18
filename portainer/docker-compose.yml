@@ -19,10 +19,12 @@ services:
       # - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
 
-networks:
-  web:
-    driver: bridge
 
 volumes:
   portainer_data:
+    external: true
+
+
+networks:
+  web:
     external: true
