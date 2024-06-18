@@ -4,8 +4,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}
     image: traefik:v2.6.6
     ports:
-      - 80:80/tcp
-      - 443:443/tcp
+      - "${INTERMEDIATE_PORT}:443/tcp"
     networks:
       - web
     volumes:
@@ -13,20 +12,22 @@ services:
       - ./acme.json:/acme.json
     restart: always
     command:
-      - --api.insecure=true
-      - --providers.docker=true
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      - --certificatesresolvers.letsencrypt.acme.email=${EMAIL}
-      - --certificatesresolvers.letsencrypt.acme.storage=/acme.json
-      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
-      - --entrypoints.websecure.http.middlewares=traefik-ipwhitelist@file
-      - --entrypoints.websecure.http.middlewares=simpleAuth@file
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:${INTERMEDIATE_PORT}"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=${EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/acme.json"
+      - "--entrypoints.websecure.http.tls.certresolver=letsencrypt"
+      - "--entrypoints.websecure.http.middlewares=traefik-ipwhitelist@file"
+      - "--entrypoints.websecure.http.middlewares=simpleAuth@file"
     environment:
       - EMAIL=${EMAIL}
       - BASIC_AUTH_USERS=${BASIC_AUTH_USERS}
       - IP_WHITELIST=${IP_WHITELIST}
+      - INTERMEDIATE_PORT=443    # Default port forwarded from router to Docker server
+
     labels:
       # Define router for Traefik dashboard accessible at <COMPOSE_PROJECT_NAME>.<DOMAIN>
       - traefik.http.routers.traefik.rule=Host(`${COMPOSE_PROJECT_NAME}.${DOMAIN}`)

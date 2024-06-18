@@ -46,7 +46,10 @@ If `traefik` is specified as the stack name, the fully qualified domains will be
 * Test server: `https://traefik.tst.energietransitiewindesheim.nl`
 * Production server: `https://traefik.energietransitiewindesheim.nl`
 
-### `BASIC_AUTH_USERS`
+### `INTERMEDIATE_PORT`
+
+Use a port other than the default `443` for HTTPS traffic within your infrastructure (e.g. when using a Synology NAS as Docker server) to avoid collisions, e.g., `8443`.
+
 
 ### `BASIC_AUTH_USERS`
 

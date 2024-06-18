@@ -133,7 +133,7 @@ This setup has to be done with SSH access to the server. During these steps, por
     docker stop portainer-bootstrap && \
     docker volume rm portainer-bootstrap_data
     ```
-   This stops the `portainer-bootstrap` container and removes the `portainer-bootstrap_data` volume used for bootstrapping.
+   This stops and removes the `portainer-bootstrap` container and removes the `portainer-bootstrap_data` volume used for bootstrapping.
 
 1. Restart Portainer to apply the configurations:
     ```bash
