@@ -111,23 +111,19 @@ This setup has to be done with SSH access to the server. During these steps, por
     chmod 600 /opt/traefik/acme.json && \
     docker network create web && \
     docker volume create portainer-bootstrap_data && \
-    docker volume create portainer_data
-    ```
-   This command:
-   - creates an acme.json file for Traefik to store certificates in;
-   - creates the web network for containers to share;
-   - creates two Docker volumes:
-     - `portainer-bootstrap_data` for the bootstrapping process;
-     - `portainer_data` for persistent data storage for the Portainer application.
-
-2. Start the temporary Portainer container using the bootstrapping volume:
-    ```bash
+    docker volume create portainer_data && \
     docker run -d --rm -p 9443:9443 --name portainer-bootstrap \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v portainer-bootstrap_data:/data \
     portainer/portainer-ce:latest
     ```
-   This command starts a Portainer container named `portainer-bootstrap` using the `portainer-bootstrap_data` volume for bootstrapping.
+   This multi-line command:
+   - creates an acme.json file for Traefik to store certificates in;
+   - creates the web network for containers to share;
+   - creates two Docker volumes:
+     - `portainer-bootstrap_data` for the bootstrapping process;
+     - `portainer_data` for persistent data storage for the Portainer application.
+   - starts a Portainer container named `portainer-bootstrap` using the `portainer-bootstrap_data` volume for bootstrapping.
 
 3. Access the bootstrap Portainer web interface in your browser at `https://server-external-ip-address:9443`. Enter a username and password for the initial administrator when prompted.
 
