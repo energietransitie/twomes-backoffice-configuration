@@ -11,7 +11,7 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=lets-encrypt
       - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=9000
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
-      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange=$IP_Whitelist
+      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange=${IP_WHITELIST}
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
