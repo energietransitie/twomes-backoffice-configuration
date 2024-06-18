@@ -8,15 +8,13 @@ services:
     labels:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.${DOMAIN}`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls=true
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=lets-encrypt
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
       - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=9000
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
       - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange=${IP_WHITELIST}
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
-      # Removed the bind mount for /usr/bin/docker as it's usually unnecessary
-      # - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
 
 
