@@ -78,6 +78,7 @@ With this config in place, login to the server is simply
 ssh etw
 ```
 
+
 ### Subdomains
 
 The URLs we use for our public services:
@@ -102,7 +103,7 @@ The URLs we use for system services:
 
 This setup has to be done with SSH access to the server. During these steps, portainer is shorly exposed to the public internet without protection of credentials or IP whitelists.
 
-1. Log into the server using SSH.
+1. Log into the server using SSH and run the following commands on your docker host.
 2. Create a volume for portainer:
     ```bash
     docker volume create portainer_data
@@ -114,17 +115,21 @@ This setup has to be done with SSH access to the server. During these steps, por
     -v portainer_data:/data \
     portainer/portainer-ce:latest
     ```
-4. Open Portainer in your browser: `https://server-external-ip-address:9443`.
-5. Add portainer and traefik as a stack by following the steps described [here](#deploying-stacks-with-portainer).
-6. Stop the bootstrapping container:
+4. Create the `web` network: is created:
+    ```bash
+    docker network create web
+    ```
+5. Open Portainer in your browser: `https://server-external-ip-address:9443`.
+6. Add portainer and traefik as a stack by following the steps described [here](#deploying-stacks-with-portainer).
+7. Stop the bootstrapping container:
     ```bash
     docker stop portainer-bootstrap
     ```
-7. Restart portainer:
+8. Restart portainer:
     ```bash
     docker restart portainer
     ```
-8. Portainer is now available at `docker.energietransitiewindesheim.nl`.
+9. Portainer is now available at `docker.energietransitiewindesheim.nl`.
 
 ### Deploying stacks with Portainer
 
