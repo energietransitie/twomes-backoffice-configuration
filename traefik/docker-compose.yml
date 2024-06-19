@@ -13,6 +13,7 @@ services:
     restart: always
     command:
       # - "--api.insecure=true"
+      - "--api=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:${INTERMEDIATE_PORT}"
@@ -23,7 +24,7 @@ services:
       - EMAIL=${EMAIL}
       - BASIC_AUTH_USERS=${BASIC_AUTH_USERS}
       - IP_WHITELIST=${IP_WHITELIST}
-      - INTERMEDIATE_PORT=443    # Default port forwarded from router to Docker server
+      - INTERMEDIATE_PORT=${INTERMEDIATE_PORT} 
     labels:
       # Define router for Traefik dashboard accessible at <COMPOSE_PROJECT_NAME>.<DOMAIN>
       - traefik.http.routers.traefik.rule=Host(`${COMPOSE_PROJECT_NAME}.${DOMAIN}`)
@@ -33,7 +34,7 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}
       - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}.ipwhitelist.sourcerange=${IP_WHITELIST}
       - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USERS}
+      - traefik.http.middlewares.simpleAuth.basicauth.users=${BASIC_AUTH_USERS}
 
 
 networks:
