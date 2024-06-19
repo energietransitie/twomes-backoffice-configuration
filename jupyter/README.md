@@ -26,17 +26,13 @@ Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/
 >
 > It is recommended to use a user and password without special characters to avoid parsing errors.
 
-### `IP_Whitelist`
+### `IP_WHITELIST`
 
 This environment variable is used to set the allowed IPs (or ranges of allowed IPs by using CIDR notation).
 
 Example values: `127.0.0.1/32, 192.168.1.7`
 
 > Read more about it in the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipwhitelist/).
-
-### `SERVER_TYPE`
-
-For a test server, we recomment to use `tst` and for a production server, `prd`. 
 
 ### `DOMAIN`
 
