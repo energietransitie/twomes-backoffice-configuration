@@ -11,11 +11,12 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.tls.certresolver=letsencrypt
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.middlewares=private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}
-      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.ipwhitelist.sourcerange= $IP_Whitelist
+      - traefik.http.middlewares.private-network-ipwhitelist-${COMPOSE_PROJECT_NAME}-${SERVER_TYPE}.ipwhitelist.sourcerange=${IP_WHITELIST}
     networks:
       - web
     environment:
       - TWOMES_DB_URL=${TWOMES_DB_URL}
+      - IP_WHITELIST=${IP_WHITELIST}
       - JUPYTER_ENABLE_LAB=yes
     restart: unless-stopped
     volumes:
