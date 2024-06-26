@@ -23,7 +23,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 ### `SERVER_TYPE`
 
-For a test server, we recomment to use `tst` and for a production server, `prd`. 
+For a test server, we recommend to use `tst` and for a production server, `prd`. 
 
 ### `DOMAIN`
 

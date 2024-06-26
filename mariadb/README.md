@@ -24,7 +24,7 @@ This stack does not require you to set any environment variables.
 
 ## Additional steps
 
-After the database is created for the first time, you can find the root password in the container logs. You can use this root password to log into the container and do any further configuration you wish. At Windesheim, we added additional users with varying permissions.
+After the database is created for the first time, you can find the root password in the container logs. You can use this root password to log into the container and do any further configuration you wish. We recommend adding additional users with varying permissions.
 
 See some useful queries below:
 

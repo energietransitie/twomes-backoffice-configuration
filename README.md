@@ -33,7 +33,7 @@ Before you begin, ensure you have the following:
 
 - **Domain**: You should have a domain, like `example.com`, properly configured in DNS to point to your server(s). If you're using our configuration, replace `example.com` with your domain in all configuration files.
 
-- **Environment Setup**: We maintain both a test and a production environment, each on separate servers:
+- **Environment Setup**: We recommend a test and a production environment, each on separate servers:
   - Production URL: `<service>.example.com`
   - Test URLs: `<service>.tst.example.com`
 
@@ -81,21 +81,23 @@ ssh nfh
 
 ### Subdomains
 
-The URLs we use for our public services:
+For public services we suggest:
 
-| Service                        | Production URL        | Test URL                  |
+| Public Service                 | Production URL        | Test URL                  |
 | ------------------------------ | --------------------- | ------------------------- |
 | [API](./api/README.md)         | `api.example.com`     | `api.tst.example.com`     |
 | [Manuals](./manuals/README.md) | `manuals.example.com` | `manuals.tst.example.com` |
 
-The URLs we use for system services:
+For system services we suggest:
 
-| Service                                | Production URL                | Test URL                          |
+| System Service                         | Production URL                | Test URL                          |
 | -------------------------------------- | ----------------------------- | --------------------------------- |
 | [Portainer](./portainer/README.md)     | `portainer.example.com`       | `portainer.tst.example.com`       |
 | [CloudBeaver](./cloudbeaver/README.md) | `cloudbeaver.example.com`     | `cloudbeaver.tst.example.com`     |
 | [Duplicati](./duplicati/README.md)     | `duplicati.example.com`       | `duplicati.tst.example.com`       |
 | [JupyterLab](./jupyter/README.md)      | `analysis-<name>.example.com` | `analysis-<name>.tst.example.com` |
+
+You may want to consider adding an additional layer of protection for system services, e.g. VPN and/or IP whitelisting.
 
 ## Deploying
 
@@ -149,7 +151,7 @@ This setup has to be done with SSH access to the server. During these steps, por
 ### Deploying stacks with Portainer
 
 Use the following steps to deploy a service as a Portainer stack. 
-> At Windesheim we use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
+> We use Portainer stacks, but the docker-compose files can also be deployed without Portainer, using [Docker Compose](https://docs.docker.com/get-started/08_using_compose/#run-the-application-stack).
 
 Add a new stack according to the following steps:
 1. Go to `Home` > `local ` > `stacks` in portainer.
