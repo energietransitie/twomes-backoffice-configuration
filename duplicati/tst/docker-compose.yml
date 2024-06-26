@@ -11,7 +11,7 @@ services:
     networks:
       - web
     labels:
-      - traefik.http.routers.duplicati-tst.rule=Host(`backup.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.duplicati-tst.rule=Host(`duplicati.tst.example.com`)
       - traefik.http.routers.duplicati-tst.tls=true
       - traefik.http.routers.duplicati-tst.tls.certresolver=lets-encrypt
       - traefik.http.services.duplicati-tst.loadbalancer.server.port=8200

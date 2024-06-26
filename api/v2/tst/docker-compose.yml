@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/twomes-backoffice-api:main
     container_name: needforheat-api-v2-tst
     labels:
-      - traefik.http.routers.needforheat-api-v2-tst.rule=Host(`api.tst.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
+      - traefik.http.routers.needforheat-api-v2-tst.rule=Host(`api.tst.example.com`) && PathPrefix(`/v2`)
       - traefik.http.routers.needforheat-api-v2-tst.priority=20
       - traefik.http.middlewares.test-stripprefix-v2.stripprefix.prefixes=/v2
       - traefik.http.routers.needforheat-api-v2-tst.tls=true

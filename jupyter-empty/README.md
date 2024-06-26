@@ -20,7 +20,7 @@ jupyter/docker-compose.yml
 
 This environment variable is used to set the connection string which is used to connect to the NeedForHeat database.
 
-Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/twomes_v2`
+Example values: `readonly_researcher:correcthorsebatterystaple@mariadb_dev:3306/needforheat`
 
 > The composition of the connection string is as follows: `<db_user>:<db_password>@<db_host>:<db_port>/<db_name>`.
 >
@@ -38,13 +38,13 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 Specify the domain that will be used; for a test server we recomend to prefix this with `tst.`, so:
 
-* for a test  server, set e.g. `DOMAIN=tst.energietransitiewindesheim.nl`
-* for a production server, set e.g. `DOMAIN=energietransitiewindesheim.nl`
+* for a test  server, set e.g. `DOMAIN=tst.example.com`
+* for a production server, set e.g. `DOMAIN=example.com`
 
 So, if you  specified  `analysis-one` as the stack name, the fully qualified domains will become:
 
-* test server: `https://analysis-one.tst.energietransitiewindesheim.nl`
-* production server: `https://analysis-one.energietransitiewindesheim.nl`
+* test server: `https://analysis-one.tst.example.com`
+* production server: `https://analysis-one.example.com`
 
 
 ## First time log in

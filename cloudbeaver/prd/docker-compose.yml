@@ -6,7 +6,7 @@ services:
     networks:
       - web
     labels:
-      - traefik.http.routers.cloudbeaver-prd.rule=Host(`db.energietransitiewindesheim.nl`)
+      - traefik.http.routers.cloudbeaver-prd.rule=Host(`cloudbeaver.example.com`)
       - traefik.http.routers.cloudbeaver-prd.tls=true
       - traefik.http.routers.cloudbeaver-prd.tls.certresolver=lets-encrypt
       - traefik.http.services.cloudbeaver-prd.loadbalancer.server.port=8978

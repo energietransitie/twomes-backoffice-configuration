@@ -5,7 +5,7 @@
 
 This repository contains configuration scripts and instructions for configuring a NeedForHeat Server, comprising of multiple Docker containers hosted on a Linux server, based on the following technologies: [Traefik proxy](https://traefik.io/traefik/), [Portainer](https://www.portainer.io/), [MariaDB](https://mariadb.org/), [CloudBeaver](https://cloudbeaver.io/), [Duplicati](https://www.duplicati.com/), [NeedForHeat Server API](https://github.com/energietransitie/needforheat-server-api) and [JupyterLab](https://jupyter.org/).
 
-NB: Where you read `energietransitiewindesheim.nl` below, you should subsitute your own domain; where you read `etw` below, you should subsitute your own server abbreviation. 
+NB: Where you read `example.com` below, you should subsitute your own domain (we use `energietransitiewindesheim.nl`). 
 
 <!-- omit from toc -->
 ## Table of contents
@@ -31,11 +31,11 @@ Before you begin, ensure you have the following:
   - A Virtual Private Server running Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-107-generic x86_64), equipped with 58GB of memory and 1.9TB of disk space.
   - A Synology DS923+ NAS running GNU/Linux synology_r1000_923+ with 32GB of memory and 8.1TB of disk space.
 
-- **Domain**: You should have a domain, like `energietransitiewindesheim.nl`, properly configured in DNS to point to your server(s). If you're using our configuration, replace `energietransitiewindesheim.nl` with your domain in all configuration files.
+- **Domain**: You should have a domain, like `example.com`, properly configured in DNS to point to your server(s). If you're using our configuration, replace `example.com` with your domain in all configuration files.
 
 - **Environment Setup**: We maintain both a test and a production environment, each on separate servers:
-  - Production URL: `<service>.energietransitiewindesheim.nl`
-  - Test URLs: `<service>.tst.energietransitiewindesheim.nl`
+  - Production URL: `<service>.example.com`
+  - Test URLs: `<service>.tst.example.com`
 
 > Note: If your domain is newly registered, it may take up to 48 hours for DNS changes to propagate worldwide. You can use tools like [DNS checker](https://dnschecker.org/) to monitor the status of these changes.
 
@@ -48,34 +48,34 @@ ssh key will be used for authentication.
 
 Open a Linux command window on your local system. On Windows, you can use e.g. [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) for this. 
 
-Generate a public/private key pair (files `.ssh/etw.pub` and `.ssh/etw`)
+Generate a public/private key pair (files `.ssh/nfh.pub` and `.ssh/nfh`)
 ```shell
-ssh-keygen -f ~/.ssh/etw
+ssh-keygen -f ~/.ssh/nfh
 ```
 
 When asked for passphrase, leave that empty.
 
 Now, upload your public key to the server.
 ```shell
-ssh-copy-id -i ~/.ssh/etw root@energietransitiewindesheim.nl
+ssh-copy-id -i ~/.ssh/nfh root@example.com
 ```
 
 Login with ssh, without using a password
 ```shell
-ssh -i ~/.ssh/etw root@energietransitiewindesheim.nl
+ssh -i ~/.ssh/nfh root@example.com
 ```
 
 Append the following to your `.ssh/config`
 ```text
-Host etw
+Host nfh
 User root
-HostName energietransitiewindesheim.nl
-IdentityFile ~/.ssh/etw
+HostName example.com
+IdentityFile ~/.ssh/nfh
 ```
 
 With this config in place, login to the server is simply
 ```shell
-ssh etw
+ssh nfh
 ```
 
 
@@ -83,19 +83,19 @@ ssh etw
 
 The URLs we use for our public services:
 
-| Service                        | Production URL                           | Test URL                                       |
-| ------------------------------ | ---------------------------------------- | ---------------------------------------------- |
-| [API](./api/README.md)         | `api.energietransitiewindesheim.nl`      | `api.tst.energietransitiewindesheim.nl`        |
-| [Manuals](./manuals/README.md) | `manuals.energietransitiewindesheim.nl`  | `manuals.tst.energietransitiewindesheim.nl`    |
+| Service                        | Production URL        | Test URL                  |
+| ------------------------------ | --------------------- | ------------------------- |
+| [API](./api/README.md)         | `api.example.com`     | `api.tst.example.com`     |
+| [Manuals](./manuals/README.md) | `manuals.example.com` | `manuals.tst.example.com` |
 
 The URLs we use for system services:
 
-| Service                        | Production URL                           | Test URL                                       |
-| ------------------------------ | ---------------------------------------- | ---------------------------------------------- |
-| [Portainer](./portainer/README.md) | `portainer.energietransitiewindesheim.nl`  | `portainer.tst.energietransitiewindesheim.nl`     |
-| [CloudBeaver](./cloudbeaver/README.md) | `db.energietransitiewindesheim.nl`  | `db.tst.energietransitiewindesheim.nl`         |
-| [Duplicati](./duplicati/README.md) | `backup.energietransitiewindesheim.nl`  | `backup.tst.energietransitiewindesheim.nl`     |
-| [JupyterLab](./jupyter/README.md) | `analysis-<name>.energietransitiewindesheim.nl`  | `analysis-<name>.tst.energietransitiewindesheim.nl` |
+| Service                                | Production URL                | Test URL                          |
+| -------------------------------------- | ----------------------------- | --------------------------------- |
+| [Portainer](./portainer/README.md)     | `portainer.example.com`       | `portainer.tst.example.com`       |
+| [CloudBeaver](./cloudbeaver/README.md) | `cloudbeaver.example.com`     | `cloudbeaver.tst.example.com`     |
+| [Duplicati](./duplicati/README.md)     | `duplicati.example.com`       | `duplicati.tst.example.com`       |
+| [JupyterLab](./jupyter/README.md)      | `analysis-<name>.example.com` | `analysis-<name>.tst.example.com` |
 
 ## Deploying
 
@@ -143,7 +143,7 @@ This setup has to be done with SSH access to the server. During these steps, por
     docker restart portainer
     ```
 
-8. Portainer is now available at `portainer.<YOUR_DOMAIN>`, for example, `portainer.energietransitiewindesheim.nl`.
+8. Portainer is now available at `portainer.<YOUR_DOMAIN>`, for example, `portainer.example.com`.
 
 
 ### Deploying stacks with Portainer
@@ -174,7 +174,7 @@ Add a new stack according to the following steps:
 
 When a `docker-compose.yml` for a stack is changed, the new configuration can be retrieved by following the steps below:
 
-1. Go to `Stacks` in [portainer](https://docker.energietransitiewindesheim.nl).
+1. Go to `Stacks` in [portainer](https://portainer.example.com).
 1. Click on the stack you want to update.
 1. You can change environment variables if you want.
 1. Click on `Pull and redeploy` to retrieve the configuration from the main branch and update the container(s).

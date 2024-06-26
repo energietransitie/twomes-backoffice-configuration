@@ -39,4 +39,4 @@ Example values: `readonly_researcher:correcthorsebatterystaple@tcp(mariadb_dev:3
 
 This environment variable is used to set the base URL used by the Swagger UI docs.
 
-Example values: `https://api.energietransitiewindesheim.nl/v2` or `https://api.tst.energietransitiewindesheim.nl/v2`
+Example values: `https://api.example.com/v2` or `https://api.tst.example.com/v2`

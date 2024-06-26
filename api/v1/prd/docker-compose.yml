@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/twomes_api:v1.1.0
     container_name: twomes-api-v1-prd
     labels:
-      - traefik.http.routers.twomes-api-v1-prd.rule=Host(`api.energietransitiewindesheim.nl`) || (Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v1`))
+      - traefik.http.routers.twomes-api-v1-prd.rule=Host(`api.example.com`) || (Host(`api.example.com`) && PathPrefix(`/v1`))
       - traefik.http.routers.twomes-api-v1-prd.priority=10
       - traefik.http.middlewares.prod-stripprefix-v1.stripprefix.prefixes=/v1
       - traefik.http.routers.twomes-api-v1-prd.tls=true

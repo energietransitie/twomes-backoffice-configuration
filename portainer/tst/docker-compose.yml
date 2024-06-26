@@ -6,7 +6,7 @@ services:
     networks:
       - web
     labels:
-      - traefik.http.routers.portainer-tst.rule=Host(`docker.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.portainer-tst.rule=Host(`portainer.tst.example.com`)
       - traefik.http.routers.portainer-tst.tls=true
       - traefik.http.routers.portainer-tst.tls.certresolver=lets-encrypt
       - traefik.http.services.portainer-tst.loadbalancer.server.port=9000

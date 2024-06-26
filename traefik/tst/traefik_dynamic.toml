@@ -1,5 +1,5 @@
 [http.routers.api]
-  rule = "Host(`proxy.tst.energietransitiewindesheim.nl`)"
+  rule = "Host(`proxy.tst.example.com`)"
   entrypoints = ["websecure"]
   middlewares = ["simpleAuth", "traefik-ipwhitelist"]
   service = "api@internal"

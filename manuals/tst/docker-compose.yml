@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/needforheat-manual-server:main
     container_name: needforheat-manual-server-tst
     labels:
-      - traefik.http.routers.needforheat-manual-server-tst.rule=Host(`manuals.tst.energietransitiewindesheim.nl`)
+      - traefik.http.routers.needforheat-manual-server-tst.rule=Host(`manuals.tst.example.com`)
       - traefik.http.routers.needforheat-manual-server-tst.tls=true
       - traefik.http.routers.needforheat-manual-server-tst.tls.certresolver=lets-encrypt
       - traefik.http.services.needforheat-manual-server-tst.loadbalancer.server.port=8080

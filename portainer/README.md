@@ -29,11 +29,11 @@ For a test server, we recomment to use `tst` and for a production server, `prd`.
 
 Specify the domain that will be used; for a test server we recomend to prefix this with `tst.`, so:
 
-* for a test  server, set e.g. `DOMAIN=tst.energietransitiewindesheim.nl`
-* for a production server, set e.g. `DOMAIN=energietransitiewindesheim.nl`
+* for a test  server, set e.g. `DOMAIN=tst.example.com`
+* for a production server, set e.g. `DOMAIN=example.com`
 
 The fully URLs to access portainer will become:
 
-* test server: `https://portainer.tst.energietransitiewindesheim.nl`
-* production server: `https://portainer.energietransitiewindesheim.nl`
+* test server: `https://portainer.tst.example.com`
+* production server: `https://portainer.example.com`
 

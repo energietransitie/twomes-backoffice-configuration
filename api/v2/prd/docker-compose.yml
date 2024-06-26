@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/twomes-backoffice-api:latest # Latest is always the latest stable version.
     container_name: needforheat-api-v2-prd
     labels:
-      - traefik.http.routers.needforheat-api-v2-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v2`)
+      - traefik.http.routers.needforheat-api-v2-prd.rule=Host(`api.example.com`) && PathPrefix(`/v2`)
       - traefik.http.routers.needforheat-api-v2-prd.priority=20
       - traefik.http.middlewares.prod-stripprefix-v2.stripprefix.prefixes=/v2
       - traefik.http.routers.needforheat-api-v2-prd.tls=true

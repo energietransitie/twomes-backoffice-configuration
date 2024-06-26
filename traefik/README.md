@@ -1,6 +1,6 @@
 # Traefik
 
-[Traefik proxy](https://traefik.io/traefik/) serves as a reverse proxy and load balancer, handling HTTP(S) traffic for multiple subdomains under energietransitiewindesheim.nl and managing Let's Encrypt certificates.
+[Traefik proxy](https://traefik.io/traefik/) serves as a reverse proxy and load balancer, handling HTTP(S) traffic for multiple subdomains under example.com and managing Let's Encrypt certificates.
 
 Follow the steps in the [deploying section of the main README](../README.md#deploying-stacks-with-portainer) for general instructions on deploying stacks using Portainer.
 
@@ -38,13 +38,13 @@ Use `tst` for a test server and `prd` for a production server.
 
 Specify the domain to be used. For a test server, prefix with `tst.`.
 
-* Test server example: `DOMAIN=tst.energietransitiewindesheim.nl`
-* Production server example: `DOMAIN=energietransitiewindesheim.nl`
+* Test server example: `DOMAIN=tst.example.com`
+* Production server example: `DOMAIN=example.com`
 
 If `traefik` is specified as the stack name, the fully qualified domains will become:
 
-* Test server: `https://traefik.tst.energietransitiewindesheim.nl`
-* Production server: `https://traefik.energietransitiewindesheim.nl`
+* Test server: `https://traefik.tst.example.com`
+* Production server: `https://traefik.example.com`
 
 ### `INTERMEDIATE_PORT`
 

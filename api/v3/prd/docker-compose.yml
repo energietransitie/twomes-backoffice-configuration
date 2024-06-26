@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/needforheat-server-api:latest # Latest is always the latest stable version.
     container_name: needforheat-api-v3-prd
     labels:
-      - traefik.http.routers.needforheat-api-v3-prd.rule=Host(`api.energietransitiewindesheim.nl`) && PathPrefix(`/v3`)
+      - traefik.http.routers.needforheat-api-v3-prd.rule=Host(`api.example.com`) && PathPrefix(`/v3`)
       - traefik.http.routers.needforheat-api-v3-prd.priority=20
       - traefik.http.middlewares.prod-stripprefix-v3.stripprefix.prefixes=/v3
       - traefik.http.routers.needforheat-api-v3-prd.tls=true

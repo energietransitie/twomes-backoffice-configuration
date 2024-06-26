@@ -4,7 +4,7 @@ services:
     image: ghcr.io/energietransitie/needforheat-manual-server:latest # Latest is always the latest stable version.
     container_name: needforheat-manual-server-prd
     labels:
-      - traefik.http.routers.needforheat-manual-server-prd.rule=Host(`manuals.energietransitiewindesheim.nl`)
+      - traefik.http.routers.needforheat-manual-server-prd.rule=Host(`manuals.example.com`)
       - traefik.http.routers.needforheat-manual-server-prd.tls=true
       - traefik.http.routers.needforheat-manual-server-prd.tls.certresolver=lets-encrypt
       - traefik.http.services.needforheat-manual-server-prd.loadbalancer.server.port=8080
