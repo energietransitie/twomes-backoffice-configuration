@@ -36,7 +36,7 @@ Example values: `127.0.0.1/32, 192.168.1.7`
 
 ### `DOMAIN`
 
-Specify the domain that will be used; for a test server we recomend to prefix this with `tst.`, so:
+Specify the domain that will be used; for a test server we recommend to prefix this with `tst.`, so:
 
 * for a test  server, set e.g. `DOMAIN=tst.example.com`
 * for a production server, set e.g. `DOMAIN=example.com`
